@@ -30,13 +30,13 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
 
     //navigation
-    @BindView(R.id.nav_view)    NavigationView navigationView;
+    @BindView(R.id.navigation_view)    NavigationView navigationView;
     @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
     @BindView(R.id.sign_up_btn) Button fab;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         unbinder = ButterKnife.bind(this);
         activityPresenter = new MainActivityPresenter(this);
