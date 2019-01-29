@@ -32,7 +32,7 @@
                 app:srcCompat="@drawable/login_background" />
 
             <com.facebook.login.widget.LoginButton
-                android:id="@+id/loginButton3"
+                android:id="@+id/signup_facebook_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -65,7 +65,7 @@
                 android:textColor="@color/fw_charcoal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/loginButton3" />
+                app:layout_constraintTop_toBottomOf="@+id/signup_facebook_btn" />
 
             <View
                 android:id="@+id/right_divider"
@@ -105,6 +105,8 @@
                         android:drawableStart="@drawable/ic_image_name"
                         android:drawablePadding="16dp"
                         android:ellipsize="end"
+                        android:textColor="@color/fw_seaweed"
+                        android:textColorHint="@color/fw_sesame"
                         android:fontFamily="@font/proximanova_regular"
                         android:hint="First Name"
                         android:inputType="text"
@@ -130,6 +132,8 @@
                         android:drawableStart="@drawable/ic_image_name"
                         android:drawablePadding="16dp"
                         android:ellipsize="end"
+                        android:textColor="@color/fw_seaweed"
+                        android:textColorHint="@color/fw_sesame"
                         android:fontFamily="@font/proximanova_regular"
                         android:hint="First Name"
                         android:inputType="text"
@@ -155,6 +159,8 @@
                         android:drawablePadding="16dp"
                         android:ellipsize="end"
                         android:layout_marginTop="8dp"
+                        android:textColor="@color/fw_seaweed"
+                        android:textColorHint="@color/fw_sesame"
                         android:fontFamily="@font/proximanova_regular"
                         android:hint="Email"
                         android:inputType="textEmailAddress"
@@ -180,6 +186,8 @@
                         android:drawablePadding="16dp"
                         android:ellipsize="end"
                         android:layout_marginTop="8dp"
+                        android:textColor="@color/fw_seaweed"
+                        android:textColorHint="@color/fw_sesame"
                         android:fontFamily="@font/proximanova_regular"
                         android:hint="Phone Number"
                         android:inputType="phone"
@@ -205,6 +213,8 @@
                         android:drawablePadding="16dp"
                         android:ellipsize="end"
                         android:layout_marginTop="8dp"
+                        android:textColor="@color/fw_seaweed"
+                        android:textColorHint="@color/fw_sesame"
                         android:fontFamily="@font/proximanova_regular"
                         android:hint="Password"
                         android:inputType="textPassword"
@@ -230,6 +240,8 @@
                         android:drawableStart="@drawable/ic_image_sign_up_date_of_birth"
                         android:drawablePadding="16dp"
                         android:ellipsize="end"
+                        android:textColor="@color/fw_seaweed"
+                        android:textColorHint="@color/fw_sesame"
                         android:fontFamily="@font/proximanova_regular"
                         android:hint="Date of Birth"
                         android:maxLines="1"

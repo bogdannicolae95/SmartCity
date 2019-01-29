@@ -52,6 +52,15 @@
         android:name="com.example.nicolaebogdan.smartcity.ux.home.auth.SignupFragment"
         android:label="SIGNUP"
         tools:layout="@layout/fragment_signup">
+
+        <action
+            android:id="@+id/action_signup_to_home"
+            app:destination="@+id/homeFragment"
+            app:enterAnim="@anim/slide_enter"
+            app:exitAnim="@anim/slide_exit"
+            app:popEnterAnim="@anim/slide_pop_enter"
+            app:popExitAnim="@anim/slide_pop_exit" />
+
     </fragment>
     <!--END SIGN UP-->
 
