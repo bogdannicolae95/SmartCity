@@ -1,0 +1,56 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="SmartCityTheme.Toolbar" parent="@style/Widget.AppCompat.Toolbar">
+        <item name="android:fontFamily">@font/bebasneue_bold</item>
+        <item name="android:textColor">@color/fw_charcoal</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:elevation">0dp</item>
+    </style>
+
+    <style name="SmartCityTheme" parent="Theme.AppCompat.Light" >
+        <item name="colorPrimary">@color/fw_white</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/fw_seaweed</item>
+        <item name="toolbarStyle">@style/SmartCityTheme.Toolbar</item>
+
+        <item name="android:statusBarColor">@android:color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+
+        <item name="android:textColorPrimaryInverse">@android:color/black</item>
+        <item name="android:textColorPrimary">@android:color/black</item>
+        <item name="android:colorForeground">@color/fw_seaweed</item>
+        <item name="android:navigationBarColor">@color/fw_seaweed</item>
+    </style>
+
+    <style name="SmartCityTheme.NoActionBar" parent="SmartCityTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:colorForeground">@color/fw_charcoal</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
+        <!--<item name="android:datePickerDialogTheme">@style/FoodWellTheme.DatePicker</item>-->
+    </style>
+
+    <style name="SmartCityTheme.FullScreen" parent="SmartCityTheme.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="SmartCityTheme.NavigationView">
+        <item name="android:background">@color/fw_white</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/fw_charcoal</item>
+        <item name="android:fontFamily">@font/bebasneue_bold</item>
+        <!--<item name="listPreferredItemPaddingLeft">0dp</item>-->
+    </style>
+
+</resources>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--padding dimensions-->
+    <dimen name="fw_x_small">12dp</dimen>
+    <dimen name="fw_small">16dp</dimen>
+    <dimen name="fw_medium">24dp</dimen>
+    <dimen name="fw_large">36dp</dimen>
+    <dimen name="fw_x_large">48dp</dimen>
+
+    <!--text dimensions-->
+    <dimen name="fw_heading_1">40sp</dimen>
+    <dimen name="fw_heading_2">26sp</dimen>
+    <dimen name="fw_heading_3">24sp</dimen>
+    <dimen name="fw_heading_4">20sp</dimen>
+    <dimen name="fw_heading_5">16sp</dimen>
+    <dimen name="fw_heading_6">14sp</dimen>
+    <dimen name="fw_body_1">14sp</dimen>
+
+    <!--toolbar-->
+    <dimen name="toolbar_elevation">4dp</dimen>
+    <dimen name="option_share">32dp</dimen>
+
+</resources>
