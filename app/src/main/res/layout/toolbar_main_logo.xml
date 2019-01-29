@@ -31,6 +31,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:text="SMART CITY"
+            android:textSize="24sp"
             android:textColor="@color/fw_seaweed"
             android:fontFamily="@font/proximanova_bold"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -31,7 +31,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_gravity="bottom|end"
                 android:layout_marginBottom="@dimen/fw_small"
-                android:background="@drawable/shape_fab_salmon"
+                android:background="@drawable/shape_fab_seaweed"
                 android:elevation="0dp"
                 android:fontFamily="@font/bebasneue_bold"
                 android:paddingStart="@dimen/fw_large"

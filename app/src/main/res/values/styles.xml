@@ -53,4 +53,29 @@
         <!--<item name="listPreferredItemPaddingLeft">0dp</item>-->
     </style>
 
+    <style name="HomeScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="ErrorAppearance" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/fw_salmon</item>
+        <item name="android:fontFamily">@font/proximanova_regular</item>
+        <item name="android:textSize">@dimen/fw_heading_6</item>
+    </style>
+
+    <style name="SmartCityTheme.ToolbarTitle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:fontFamily">@font/bebasneue_bold</item>
+        <item name="android:textColor">@color/fw_charcoal</item>
+        <item name="android:textSize">@dimen/fw_heading_3</item>
+        <item name="android:letterSpacing">.04</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
 </resources>

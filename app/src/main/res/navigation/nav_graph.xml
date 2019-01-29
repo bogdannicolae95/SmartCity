@@ -16,18 +16,45 @@
             app:destination="@+id/loginFragment"
             app:enterAnim="@anim/slide_enter"
             app:exitAnim="@anim/slide_exit"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:popEnterAnim="@anim/slide_pop_enter"
+            app:popExitAnim="@anim/slide_pop_exit" />
+        <action
+            android:id="@+id/action_signup"
+            app:destination="@+id/signupFragment"
+            app:enterAnim="@anim/slide_enter"
+            app:exitAnim="@anim/slide_exit"
+            app:popEnterAnim="@anim/slide_pop_enter"
+            app:popExitAnim="@anim/slide_pop_exit" />
     </fragment>
+    <!--END HOME-->
 
+    <!--LOGIN -->
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.nicolaebogdan.smartcity.ux.home.auth.LoginFragment"
         android:label="LOGIN"
-        tools:layotut="@layout/fragment_login"
         tools:layout="@layout/fragment_login">
 
+        <action
+            android:id="@+id/action_login_to_home"
+            app:destination="@+id/homeFragment"
+            app:enterAnim="@anim/slide_enter"
+            app:exitAnim="@anim/slide_exit"
+            app:popEnterAnim="@anim/slide_pop_enter"
+            app:popExitAnim="@anim/slide_pop_exit" />
 
     </fragment>
+    <!--END LOGIN -->
+
+    <!--SIGN UP-->
+    <fragment
+        android:id="@+id/signupFragment"
+        android:name="com.example.nicolaebogdan.smartcity.ux.home.auth.SignupFragment"
+        android:label="SIGNUP"
+        tools:layout="@layout/fragment_signup">
+    </fragment>
+    <!--END SIGN UP-->
+
+
 
 </navigation>

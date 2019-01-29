@@ -13,10 +13,12 @@ import com.example.nicolaebogdan.smartcity.R;
 import com.example.nicolaebogdan.smartcity.i.MainView;
 
 import androidx.navigation.NavController;
+import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 import static android.support.v4.view.GravityCompat.START;
@@ -95,4 +97,17 @@ public class MainActivity extends AppCompatActivity implements MainView {
     public boolean onSupportNavigateUp() {
         return NavigationUI.navigateUp(navController, drawerLayout);
     }
+
+    @OnClick(R.id.sign_up_btn)
+    public void fabAction(View view){
+        NavOptions options = new NavOptions.Builder()
+                .setEnterAnim(R.anim.slide_enter)
+                .setExitAnim(R.anim.slide_exit)
+                .setPopEnterAnim(R.anim.slide_pop_enter)
+                .setPopExitAnim(R.anim.slide_pop_exit)
+                .build();
+        Bundle bundle = new Bundle();
+        navController.navigate(R.id.signupFragment,bundle,options);
+    }
+
 }
