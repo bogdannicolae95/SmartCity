@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
         NavHostFragment hostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         navController = hostFragment.getNavController();
         setupNavigationDrawer(navController);
+
+
     }
 
     private void setupNavigationDrawer(NavController controller){
@@ -109,5 +111,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
         Bundle bundle = new Bundle();
         navController.navigate(R.id.signupFragment,bundle,options);
     }
+
+
 
 }

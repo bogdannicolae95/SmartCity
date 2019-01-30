@@ -1,6 +1,8 @@
 package com.example.nicolaebogdan.smartcity.ux.home.auth;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +20,7 @@ import com.facebook.login.widget.LoginButton;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class SignupFragment extends AbstractFragment<MainView,SignupPresenter> {
+public class SignupFragment extends AbstractFragment<MainView,SignupPresenter> implements SignupPresenter.RegisterView {
 
     @BindView(R.id.signup_facebook_btn)                 LoginButton facebookBtn;
     @BindView(R.id.signup_first_name_input)             EditText firstNameInput;
@@ -36,9 +38,13 @@ public class SignupFragment extends AbstractFragment<MainView,SignupPresenter> {
     @BindView(R.id.signup_gender_error)                 TextView genderError;
     @BindView(R.id.sign_up_check_terms_and_condition)   CheckBox termEndCondition;
     @BindView(R.id.signup_terms_error)                  TextView termsAndConditionError;
+    @BindView(R.id.signup_password_input)               EditText passwordInput;
+    @BindView(R.id.signup_password_error)               TextView passwordError;
 
     @BindView(R.id.toolbar_title)                       TextView toolbarTitle;
     @BindView(R.id.back_arrow)                          Button backArrow;
+
+    private ProgressDialog progressDialog;
 
     @Override
     protected int getLayoutResId() {
@@ -54,6 +60,7 @@ public class SignupFragment extends AbstractFragment<MainView,SignupPresenter> {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
         getActivityView().hideFab();
+        progressDialog = new ProgressDialog(getContext());
         toolbarTitle.setText("SIGN UP");
         return view;
     }
@@ -71,6 +78,21 @@ public class SignupFragment extends AbstractFragment<MainView,SignupPresenter> {
     @OnClick(R.id.sign_up_submit_button)
     public void onSubmitClick(){
         // TODO: add validation on fields
+        if((!TextUtils.isEmpty(emailInput.getText().toString())) && (!TextUtils.isEmpty(passwordInput.getText().toString()))) {
+            progressDialog.setMessage("Register user...");
+            progressDialog.show();
+            fragmentPresenter.registerWithCredentials(emailInput.getText().toString(), passwordInput.getText().toString());
+        }
+    }
+
+    @Override
+    public void showRegisterSucces() {
+        progressDialog.dismiss();
         navigateTo(R.id.action_signup_to_home);
+    }
+
+    @Override
+    public void showRegisterFail() {
+        progressDialog.dismiss();
     }
 }

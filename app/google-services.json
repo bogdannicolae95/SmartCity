@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "753777453419",
+    "firebase_url": "https://smartcity-bf0df.firebaseio.com",
+    "project_id": "smartcity-bf0df",
+    "storage_bucket": "smartcity-bf0df.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:753777453419:android:bd4985a55aa1990a",
+        "android_client_info": {
+          "package_name": "com.example.nicolaebogdan.smartcity"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "753777453419-ata2p031d0hldkdmjgpvfdu3779pktd7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.nicolaebogdan.smartcity",
+            "certificate_hash": "90981101c8b2eec3c3bef263292a36038fcf6a68"
+          }
+        },
+        {
+          "client_id": "753777453419-uhk8dh10051g21nlsnp62tu4lr7mgjvv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjl71KYH6ABDnHPSHk0qsDlDsudcKRX70"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "753777453419-uhk8dh10051g21nlsnp62tu4lr7mgjvv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
