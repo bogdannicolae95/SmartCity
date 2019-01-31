@@ -3,12 +3,17 @@ package com.example.nicolaebogdan.smartcity.ux.home.auth;
 import com.example.nicolaebogdan.smartcity.i.FragmentView;
 import com.example.nicolaebogdan.smartcity.i.abstr.AbstractFragmentPresenter;
 import com.example.nicolaebogdan.smartcity.ux.home.auth.i.OnLoginCallback;
+import com.facebook.login.LoginResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 class LoginPresenter extends AbstractFragmentPresenter implements OnLoginCallback {
 
     protected LoginPresenter(FragmentView fragmentView) {
         super(fragmentView);
+    }
+
+    public void handleFacebookLogin(LoginResult loginResult) {
+        activityPresenter.sessionModel.loginWithFacebook(loginResult);
     }
 
     interface LoginView extends FragmentView{

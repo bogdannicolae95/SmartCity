@@ -9,9 +9,12 @@ import com.example.nicolaebogdan.smartcity.common.SmartCityPreferences;
 import com.example.nicolaebogdan.smartcity.i.ActivityPresenter;
 import com.example.nicolaebogdan.smartcity.ux.home.auth.i.OnLoginCallback;
 import com.example.nicolaebogdan.smartcity.ux.home.auth.i.OnRegisterCallback;
+import com.facebook.login.LoginResult;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -50,12 +53,29 @@ public class SessionModel {
             if(task.isSuccessful()){
                 onRegisterCallback.onRegisterSucces();
                 String uid = firebaseAuth.getUid();
-//                    SmartCityApp.notifyDebugWithToast(uid,Toast.LENGTH_LONG);
                 firebaseDatabase.child("users").child(uid).child("name").setValue("test");
             }else{
                 SmartCityApp.notifyDebugWithToast(task.getException().toString(), Toast.LENGTH_SHORT);
                 onRegisterCallback.onRegisterFail();
             }
+        });
+    }
+
+    public void loginWithFacebook(LoginResult loginResult) {
+        AuthCredential credential = FacebookAuthProvider.getCredential(loginResult.getAccessToken().getToken());
+        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+
+                String email = firebaseAuth.getCurrentUser().getEmail();
+                String uid = firebaseAuth.getUid();
+                String provider = firebaseAuth.getCurrentUser().getProviders().get(0);
+                firebaseDatabase.child("users").child(uid).child("name").setValue("facebook login");
+                SmartCityApp.notifyDebugWithToast(email,Toast.LENGTH_LONG);
+            } else {
+                SmartCityApp.notifyDebugWithToast("failllll",Toast.LENGTH_LONG);
+            }
+
+
         });
     }
 }

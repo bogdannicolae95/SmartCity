@@ -122,7 +122,7 @@ public class LoginFragment extends AbstractFragment<MainView, LoginPresenter> im
             @Override
             public void onSuccess(LoginResult loginResult) {
                 SmartCityApp.notifyDebugWithToast(loginResult.getAccessToken().getToken(),Toast.LENGTH_LONG);
-                handleFacebookAccessToken(loginResult.getAccessToken());
+                fragmentPresenter.handleFacebookLogin(loginResult);
             }
 
             @Override
@@ -146,29 +146,6 @@ public class LoginFragment extends AbstractFragment<MainView, LoginPresenter> im
     @Override
     public void showLoginFail() {
         progressDialog.dismiss();
-    }
-
-    private void handleFacebookAccessToken(AccessToken token) {
-
-
-        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        mAuth.signInWithCredential(credential).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-
-                //todo move loginwithfacebook login in session model
-
-                String email = mAuth.getCurrentUser().getEmail();
-                String uid = mAuth.getUid();
-                String provider = mAuth.getCurrentUser().getProviders().get(0);
-                firebaseDatabase.child("users").child(uid).child("name").setValue("facebook login");
-                SmartCityApp.notifyDebugWithToast(email,Toast.LENGTH_LONG);
-
-            } else {
-                SmartCityApp.notifyDebugWithToast("failllll",Toast.LENGTH_LONG);
-            }
-
-
-        });
     }
 
 
