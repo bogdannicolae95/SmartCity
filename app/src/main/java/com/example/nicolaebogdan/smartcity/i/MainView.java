@@ -19,4 +19,6 @@ public interface MainView {
     default void hideFab() {
         toggleFab(false);
     }
+
+//    void getLocationPermissions();
 }

@@ -109,7 +109,7 @@ public class LoginFragment extends AbstractFragment<MainView, LoginPresenter> im
         String passwprd = passwordInput.getText().toString();
 
         if((!TextUtils.isEmpty(email)) && (!TextUtils.isEmpty(passwprd))){
-            progressDialog.setMessage("Register user...");
+            progressDialog.setMessage("Logging user...");
             progressDialog.show();
             fragmentPresenter.loginWithCredential(email,passwprd);
         }

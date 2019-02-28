@@ -12,12 +12,11 @@ import com.example.nicolaebogdan.smartcity.common.SmartCityPreferences;
 
 public class SmartCityApp extends Application {
 
-	private static final String APP_TAG = "FoodWellApp";
-	private static final String FOODWELL_SHARED_PREFS_KEY = "SKIN_SIGHT_SHARED_PREFS_KEY";
+	private static final String APP_TAG = "SmartCityApp";
+	private static final String SMARTCITY_SHARED_PREFS_KEY = "SMARTCITY_SHARED_PREFS_KEY";
 
 	protected static SmartCityApp currentApplication;
 	private SmartCityPreferences smartCityPreferences;
-	private boolean isDebug;
 
 	public SmartCityApp(){
 		currentApplication = this;
@@ -26,8 +25,7 @@ public class SmartCityApp extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		smartCityPreferences = new SmartCityPrefImpl(getSharedPreferences(FOODWELL_SHARED_PREFS_KEY, Context.MODE_PRIVATE));
-		isDebug = BuildConfig.BUILD_TYPE.equals("debug");
+		smartCityPreferences = new SmartCityPrefImpl(getSharedPreferences(SMARTCITY_SHARED_PREFS_KEY, Context.MODE_PRIVATE));
 	}
 
 	public static SmartCityApp getCurrentApplication() {
@@ -55,7 +53,6 @@ public class SmartCityApp extends Application {
 	}
 
 	public static void notifyDebugWithToast(String message, int duration){
-		if (currentApplication.isDebug)
 			Toast.makeText(getCurrentApplication(), message, duration).show();
 	}
 
