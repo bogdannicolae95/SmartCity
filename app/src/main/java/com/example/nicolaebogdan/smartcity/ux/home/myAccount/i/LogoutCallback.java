@@ -1,4 +1,5 @@
 package com.example.nicolaebogdan.smartcity.ux.home.myAccount.i;
 
-interface LogoutCallback {
+public interface LogoutCallback {
+    void onLogoutSucces();
 }
