@@ -14,4 +14,18 @@
 
 
     <string name="terms_and_conditions_check_box">I agree to the terms and conditions</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="or">OR</string>
+    <string name="login_with_facebook">Login with facebook</string>
+    <string name="my_account">MY ACCOUNT</string>
+    <string name="My_Account">My Account</string>
+    <string name="email_hint">example@example.com</string>
+    <string name="new_password">password</string>
+    <string name="re_type_password">re-type password</string>
+    <string name="email">Email</string>
+    <string name="new_password_tv">New Password</string>
+    <string name="re_type_password_tv">Re-type Password</string>
+    <string name="sign_out">Log Out</string>
+    <string name="fullname">%s %s</string>
+    <string name="please_login_to_access_your_account">Please Login to access your account</string>
 </resources>

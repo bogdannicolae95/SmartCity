@@ -1,44 +1,45 @@
-package com.example.nicolaebogdan.smartcity.ux.home;
+package com.example.nicolaebogdan.smartcity.ux.home.home;
 
 
-import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
-import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.nicolaebogdan.smartcity.R;
+import com.example.nicolaebogdan.smartcity.SmartCityApp;
+import com.example.nicolaebogdan.smartcity.domain.User;
 import com.example.nicolaebogdan.smartcity.i.MainView;
 import com.example.nicolaebogdan.smartcity.i.abstr.AbstractFragment;
-import com.facebook.FacebookSdk;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import com.google.firebase.auth.FirebaseAuth;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 
-public class HomeFragment extends AbstractFragment<MainView, HomePresenter> {
+public class HomeFragment extends AbstractFragment<MainView, HomePresenter> implements HomePresenter.UserInfoFromFirebaseState {
 
     Button burgerBtn;
     Toolbar toolbar;
     ImageView loginBtn;
+    @BindView(R.id.logging_email)
+    TextView loggingEmail;
 
     @Override
     protected int getLayoutResId() {
         return R.layout.fragment_home;
     }
+
+    private ProgressDialog progressDialog;
 
     @Override
     public HomePresenter createFragmentPresenter() {
@@ -59,9 +60,22 @@ public class HomeFragment extends AbstractFragment<MainView, HomePresenter> {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        progressDialog = new ProgressDialog(getContext());
         burgerBtn.setOnClickListener(view1 -> {
             openDrawer();
         });
+
+        if(fragmentPresenter.isUserLoggin()){
+            progressDialog.setMessage("Getting user info...");
+            progressDialog.show();
+            fragmentPresenter.getUserInformationFromDB();
+            loginBtn.setVisibility(GONE);
+            getActivityView().hideFab();
+        }else{
+            loggingEmail.setVisibility(GONE);
+            loginBtn.setVisibility(VISIBLE);
+            getActivityView().showFab();
+        }
 
         loginBtn.setOnClickListener(view12 -> navigateTo(R.id.action_login));
 
@@ -72,4 +86,16 @@ public class HomeFragment extends AbstractFragment<MainView, HomePresenter> {
         navigateTo(R.id.action_login);
     }
 
+    @Override
+    public void onUserInfoSucces(User user) {
+        loggingEmail.setVisibility(VISIBLE);
+        loggingEmail.setText(user.getEmail());
+        progressDialog.dismiss();
+    }
+
+    @Override
+    public void onUserInfoFail(String message) {
+        progressDialog.dismiss();
+        SmartCityApp.notifyWithToast(message, Toast.LENGTH_SHORT);
+    }
 }

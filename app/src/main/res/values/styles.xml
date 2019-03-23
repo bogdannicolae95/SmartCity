@@ -87,4 +87,13 @@
         <item name="android:textSize">@dimen/fw_heading_3</item>
     </style>
 
+    <style name="SmartCityTheme.EditText">
+        <item name="android:background">@drawable/selector_edit_text</item>
+        <item name="android:fontFamily">@font/proximanova_bold</item>
+        <item name="android:textSize">@dimen/fw_heading_5</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:padding">@dimen/fw_x_small</item>
+        <item name="android:textColor">@color/fw_seaweed</item>
+    </style>
+
 </resources>

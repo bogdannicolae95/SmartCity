@@ -3,15 +3,9 @@ package com.example.nicolaebogdan.smartcity.ux.home.auth;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,8 +18,6 @@ import com.example.nicolaebogdan.smartcity.R;
 import com.example.nicolaebogdan.smartcity.SmartCityApp;
 import com.example.nicolaebogdan.smartcity.i.MainView;
 import com.example.nicolaebogdan.smartcity.i.abstr.AbstractFragment;
-import com.example.nicolaebogdan.smartcity.ux.home.HomePresenter;
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -33,18 +25,10 @@ import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 import butterknife.BindView;
@@ -58,16 +42,14 @@ public class LoginFragment extends AbstractFragment<MainView, LoginPresenter> im
     @BindView(R.id.toolbar_title)   TextView toolbarTitle;
     @BindView(R.id.back_arrow)      Button backArrow;
     @BindView(R.id.login_submit_btn)Button submitBtn;
-    @BindView(R.id.login_email_input)
-    EditText emailInput;
+    @BindView(R.id.login_email_input) EditText emailInput;
     @BindView(R.id.login_password_input)EditText passwordInput;
-    @BindView(R.id.login_button)
-    LoginButton loginButton;
+    @BindView(R.id.facebook_login_invisible) LoginButton loginButton;
+    @BindView(R.id.loginWithFacebookCustomBtn) Button loginWithFacebookCustomBtn;
+
     CallbackManager callbackManager;
     FirebaseAuth mAuth;
-
     private ProgressDialog progressDialog;
-    private DatabaseReference firebaseDatabase;
 
     @Override
     protected int getLayoutResId() {
@@ -87,14 +69,39 @@ public class LoginFragment extends AbstractFragment<MainView, LoginPresenter> im
 
         FacebookSdk.sdkInitialize(SmartCityApp.getCurrentApplication());
         callbackManager = CallbackManager.Factory.create();
+
         mAuth = fragmentPresenter.getFireBaseAuth();
+        loginButton = (LoginButton) view.findViewById(R.id.facebook_login_invisible);
         loginButton.setReadPermissions(Arrays.asList("email","public_profile"));
         loginButton.setFragment(this);
 
-        firebaseDatabase = FirebaseDatabase.getInstance().getReference();
-
         toolbarTitle.setText("Login");
         progressDialog = new ProgressDialog(getContext());
+
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                SmartCityApp.notifyDebugWithToast(loginResult.getAccessToken().getToken(),Toast.LENGTH_LONG);
+                fragmentPresenter.handleFacebookLogin(loginResult);
+            }
+
+            @Override
+            public void onCancel() {
+                SmartCityApp.notifyDebugWithToast("login cancel",Toast.LENGTH_LONG);
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                SmartCityApp.notifyDebugWithToast(error.getMessage(),Toast.LENGTH_LONG);
+            }
+        });
+
+        loginWithFacebookCustomBtn.setOnClickListener(view1 -> {
+            if(view1 == loginWithFacebookCustomBtn){
+                loginButton.performClick();
+            }
+        });
+
         return view;
     }
 
@@ -113,28 +120,6 @@ public class LoginFragment extends AbstractFragment<MainView, LoginPresenter> im
             progressDialog.show();
             fragmentPresenter.loginWithCredential(email,passwprd);
         }
-    }
-
-    @OnClick(R.id.login_button)
-    public void loginWithFacebook(){
-        LoginManager.getInstance().logOut();
-        loginButton.setOnClickListener(v -> loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                SmartCityApp.notifyDebugWithToast(loginResult.getAccessToken().getToken(),Toast.LENGTH_LONG);
-                fragmentPresenter.handleFacebookLogin(loginResult);
-            }
-
-            @Override
-            public void onCancel() {
-                SmartCityApp.notifyDebugWithToast("login cancel",Toast.LENGTH_LONG);
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                SmartCityApp.notifyDebugWithToast(error.getMessage(),Toast.LENGTH_LONG);
-            }
-        }));
     }
 
     @Override

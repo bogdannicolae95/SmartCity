@@ -143,10 +143,10 @@ public class SignupFragment extends AbstractFragment<MainView, SignupPresenter> 
         genderError.setVisibility(INVISIBLE);
         switch (radioButton.getId()) {
             case R.id.gender_male:
-                user.setGender(MALE);
+                user.setGender("M");
                 break;
             case R.id.gender_female:
-                user.setGender(FEMALE);
+                user.setGender("F");
                 break;
         }
     }
@@ -172,6 +172,7 @@ public class SignupFragment extends AbstractFragment<MainView, SignupPresenter> 
         user.setEmail(emailInput.getText().toString());
         user.setPhoneNumber(phoneInput.getText().toString());
         user.setPassword(passwordInput.getText().toString());
+
 
         return user;
     }

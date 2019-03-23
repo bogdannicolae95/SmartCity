@@ -8,7 +8,7 @@
     <!--HOME-->
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.nicolaebogdan.smartcity.ux.home.HomeFragment"
+        android:name="com.example.nicolaebogdan.smartcity.ux.home.home.HomeFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_home">
         <action
@@ -27,6 +27,31 @@
             app:popExitAnim="@anim/slide_pop_exit" />
     </fragment>
     <!--END HOME-->
+
+    <!--MY ACCOUNT-->
+    <fragment
+        android:id="@+id/myAccountFragment"
+        android:name="com.example.nicolaebogdan.smartcity.ux.home.myAccount.MyAccountFragment"
+        android:label="My Account"
+        tools:layout="@layout/my_account_fragment_layout">
+
+        <action
+            android:id="@+id/action_logout"
+            app:destination="@+id/homeFragment"
+            app:enterAnim="@anim/slide_enter"
+            app:exitAnim="@anim/slide_exit"
+            app:popEnterAnim="@anim/slide_pop_enter"
+            app:popExitAnim="@anim/slide_pop_exit" />
+
+        <action
+            android:id="@+id/action_login_from_my_account"
+            app:destination="@+id/loginFragment"
+            app:enterAnim="@anim/slide_enter"
+            app:exitAnim="@anim/slide_exit"
+            app:popEnterAnim="@anim/slide_pop_enter"
+            app:popExitAnim="@anim/slide_pop_exit" />
+
+    </fragment>
 
     <!--LOGIN -->
     <fragment
@@ -63,6 +88,9 @@
 
     </fragment>
     <!--END SIGN UP-->
+
+    <!--<fragment -->
+        <!--android:id="@+id/mapFragment"/>-->
 
 
 

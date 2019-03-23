@@ -3,6 +3,7 @@ package com.example.nicolaebogdan.smartcity.domain;
 import android.annotation.SuppressLint;
 
 import com.example.nicolaebogdan.smartcity.ux.home.auth.model.Gender;
+import com.google.firebase.database.Exclude;
 
 import java.io.Serializable;
 
@@ -82,14 +83,23 @@ public class User implements Serializable {
         return gender;
     }
 
-    public void setGender(Gender genderEnum) {
-        this.gender = genderEnum.gender;
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public void setGenderAsString(String gender){
+        this.gender = gender;
     }
 
     @SuppressLint("DefaultLocale")
     public void  setDateOfBirth(int year, int month, int day) {
         this.dateOfBirth = String.format("%d-%02d-%02d", year, month, day);
     }
+
+    public void setDateOfBirth(String dateOfBirth){
+        this.dateOfBirth = dateOfBirth;
+    }
+
 
     @Override
     public String toString() {

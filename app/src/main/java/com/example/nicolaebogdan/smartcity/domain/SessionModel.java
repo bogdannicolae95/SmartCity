@@ -4,6 +4,7 @@ import android.content.Context;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.nicolaebogdan.smartcity.R;
@@ -13,6 +14,8 @@ import com.example.nicolaebogdan.smartcity.common.SmartCityPreferences;
 import com.example.nicolaebogdan.smartcity.i.ActivityPresenter;
 import com.example.nicolaebogdan.smartcity.ux.home.auth.i.OnLoginCallback;
 import com.example.nicolaebogdan.smartcity.ux.home.auth.i.OnRegisterCallback;
+import com.example.nicolaebogdan.smartcity.ux.home.home.i.OnGetUserInfoFromFirebaseCallback;
+import com.example.nicolaebogdan.smartcity.ux.home.myAccount.i.LogoutCallback;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,8 +25,12 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import static android.content.Context.LOCATION_SERVICE;
 
@@ -33,6 +40,7 @@ public class SessionModel {
     private SmartCityPreferences smartCityPreferences;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference firebaseDatabase;
+    private User currentUser;
 
     //todo move from here to a special class with constants
     private static final String NOD_KEY = "users";
@@ -42,11 +50,20 @@ public class SessionModel {
         smartCityPreferences = SmartCityApp.getCurrentApplication().getSmartCityPreferences();
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance().getReference();
+        currentUser = new User();
 
     }
 
     public FirebaseAuth getFirebaseAuthInstance() {
         return firebaseAuth;
+    }
+
+    public boolean isUserLoggin(){
+        if(firebaseAuth.getCurrentUser() != null){
+            return true;
+        }else {
+            return false;
+        }
     }
 
     public void loginWithCredentials(String email, String passwprd, OnLoginCallback onLoginCallback){
@@ -84,7 +101,6 @@ public class SessionModel {
                 String provider = firebaseAuth.getCurrentUser().getProviders().get(0);
 
 
-
                 SmartCityApp.notifyDebugWithToast(email,Toast.LENGTH_LONG);
             } else {
                 SmartCityApp.notifyDebugWithToast("failllll",Toast.LENGTH_LONG);
@@ -94,15 +110,14 @@ public class SessionModel {
         });
     }
 
-    public void logout(){
+    public void logout(LogoutCallback logoutCallback){
         firebaseAuth.signOut();
         LoginManager.getInstance().logOut();
         smartCityPreferences.clearFacebookToken();
+        logoutCallback.onLogoutSucces();
     }
 
-    public void addInformationToUser(User user,String userId,String provider,OnRegisterCallback onRegisterCallback){
-
-
+    private void addInformationToUser(User user,String userId,String provider,OnRegisterCallback onRegisterCallback){
 
         firebaseDatabase.child(NOD_KEY).child(userId).setValue(user).addOnCompleteListener(task -> {
             onRegisterCallback.onRegisterSucces();
@@ -112,4 +127,40 @@ public class SessionModel {
             SmartCityApp.notifyDebugWithToast(e.getMessage(),Toast.LENGTH_SHORT);
         });
     }
+
+    public void getUserInfo(OnGetUserInfoFromFirebaseCallback onGetUserInfoFromFirebaseCallback){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(NOD_KEY);
+
+        Query specific_user = myRef.child(firebaseAuth.getCurrentUser().getUid());
+        specific_user.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        //here you will get the data
+                        currentUser.setEmail(dataSnapshot.getValue(User.class).getEmail());
+                        currentUser.setFirstName(dataSnapshot.getValue(User.class).getFirstName());
+                        currentUser.setGenderAsString(dataSnapshot.getValue(User.class).getGender());
+                        currentUser.setLastName(dataSnapshot.getValue(User.class).getLastName());
+                        currentUser.setPhoneNumber(dataSnapshot.getValue(User.class).getPhoneNumber());
+                        currentUser.setDateOfBirth(dataSnapshot.getValue(User.class).getDateOfBirth());
+                        onGetUserInfoFromFirebaseCallback.onUserInfoFetchedSuccessfull(currentUser);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        onGetUserInfoFromFirebaseCallback.onUserInfoFetchedFail(databaseError.getMessage());
+                    }
+                });
+    }
+
+    public void updateUserEmail(String email){
+        firebaseAuth.getCurrentUser().updateEmail("user@example.com")
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+
+                    }
+                });
+    }
+
 }
