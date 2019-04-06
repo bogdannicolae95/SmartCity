@@ -28,4 +28,5 @@
     <string name="sign_out">Log Out</string>
     <string name="fullname">%s %s</string>
     <string name="please_login_to_access_your_account">Please Login to access your account</string>
+    <string name="map_title">MAP</string>
 </resources>

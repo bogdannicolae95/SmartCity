@@ -18,6 +18,15 @@ public class User implements Serializable {
     private String gender;
     private String lat;
     private String lon;
+    private String imageUrl;
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     public String getFirstName() {
         return firstName;

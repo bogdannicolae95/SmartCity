@@ -28,6 +28,14 @@
     </fragment>
     <!--END HOME-->
 
+    <!-- MAP -->
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.example.nicolaebogdan.smartcity.ux.home.maps.MapFragment"
+        android:label="Map"
+        tools:layout="@layout/fragment_map"/>
+    <!-- END MAP -->
+
     <!--MY ACCOUNT-->
     <fragment
         android:id="@+id/myAccountFragment"

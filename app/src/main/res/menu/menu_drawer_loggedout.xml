@@ -11,5 +11,9 @@
             android:id="@+id/myAccountFragment"
             android:icon="@drawable/ic_image_left_menu_my_account"
             android:title="@string/my_account"/>
+
+        <item
+            android:id="@+id/mapFragment"
+            android:title="@string/map_title"/>
     </group>
 </menu>

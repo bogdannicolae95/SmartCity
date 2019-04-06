@@ -16,6 +16,7 @@ import com.example.nicolaebogdan.smartcity.ux.home.auth.i.OnLoginCallback;
 import com.example.nicolaebogdan.smartcity.ux.home.auth.i.OnRegisterCallback;
 import com.example.nicolaebogdan.smartcity.ux.home.home.i.OnGetUserInfoFromFirebaseCallback;
 import com.example.nicolaebogdan.smartcity.ux.home.myAccount.i.LogoutCallback;
+import com.example.nicolaebogdan.smartcity.ux.home.myAccount.i.OnSaveProfileImageCallback;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -128,6 +129,17 @@ public class SessionModel {
         });
     }
 
+    public void saveProfileImageForUser(String imageUrl, OnSaveProfileImageCallback onSaveProfileImageCallback) {
+        String uid = firebaseAuth.getUid();
+        currentUser.setImageUrl(imageUrl);
+        firebaseDatabase.child(NOD_KEY).child(uid).setValue(currentUser).addOnCompleteListener(task -> {
+            onSaveProfileImageCallback.onSaveProfileImageSuccess();
+        }).addOnFailureListener(e -> {
+            onSaveProfileImageCallback.onSaveProfileImageFail(e.getMessage());
+            currentUser.setImageUrl(null);
+        });
+    }
+
     public void getUserInfo(OnGetUserInfoFromFirebaseCallback onGetUserInfoFromFirebaseCallback){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(NOD_KEY);
@@ -144,6 +156,7 @@ public class SessionModel {
                         currentUser.setLastName(dataSnapshot.getValue(User.class).getLastName());
                         currentUser.setPhoneNumber(dataSnapshot.getValue(User.class).getPhoneNumber());
                         currentUser.setDateOfBirth(dataSnapshot.getValue(User.class).getDateOfBirth());
+                        currentUser.setImageUrl(dataSnapshot.getValue(User.class).getImageUrl());
                         onGetUserInfoFromFirebaseCallback.onUserInfoFetchedSuccessfull(currentUser);
                     }
 
@@ -162,5 +175,4 @@ public class SessionModel {
                     }
                 });
     }
-
 }

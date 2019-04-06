@@ -20,5 +20,9 @@ public interface MainView {
         toggleFab(false);
     }
 
+    boolean isAllowCamera();
+
+    void requestPermissionsAgain();
+
 //    void getLocationPermissions();
 }

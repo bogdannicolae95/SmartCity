@@ -10,6 +10,9 @@ import android.support.v7.app.AlertDialog;
 
 import com.example.nicolaebogdan.smartcity.R;
 import com.example.nicolaebogdan.smartcity.i.ErrorsStateCallback;
+import com.example.nicolaebogdan.smartcity.ux.home.myAccount.i.PermissionStateCallback;
+
+import java.security.Permission;
 
 public class UXCommon {
 
@@ -30,7 +33,10 @@ public class UXCommon {
         alert.setTitle("Something Went wrong !");
         alert.setMessage(message);
         alert.setPositiveButton("Retry",
-                (dialog, which) -> errorStateCallback.onRetryClicked());
+                (dialog, which) -> {
+                    errorStateCallback.onRetryClicked();
+                    dialog.dismiss();
+                });
         alert.setNegativeButton("Cancel",
                 (dialog, which) -> {
                     errorStateCallback.onCancelClicked();
@@ -40,4 +46,21 @@ public class UXCommon {
         alert.show();
     }
 
+    public static void requestPermissionAgain(String message, Context context, PermissionStateCallback permissionStateCallback){
+        AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        alert.setTitle("Request Permissions Dialog");
+        alert.setMessage(message);
+        alert.setPositiveButton("Get Permission",
+                (dialog, which) -> {
+                    permissionStateCallback.onGetPermissionsClicked();
+                    dialog.cancel();
+                });
+        alert.setNegativeButton("Cancel",
+                (dialog, which) -> {
+                    permissionStateCallback.onPermissionsCancelClicked();
+                    dialog.cancel();
+                });
+
+        alert.show();
+    }
 }
