@@ -8,4 +8,8 @@ class MapPresenter extends AbstractFragmentPresenter {
     protected MapPresenter(FragmentView fragmentView) {
         super(fragmentView);
     }
+
+    public boolean isAllowLocation() {
+        return activityPresenter.sessionModel.getLocationPermission();
+    }
 }

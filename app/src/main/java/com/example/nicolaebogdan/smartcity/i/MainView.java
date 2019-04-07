@@ -22,6 +22,8 @@ public interface MainView {
 
     boolean isAllowCamera();
 
+    boolean isGoogleServiceOK();
+
     void requestPermissionsAgain();
 
 //    void getLocationPermissions();

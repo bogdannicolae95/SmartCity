@@ -54,7 +54,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:16.0.6'
 
     //google maps
-    implementation 'com.google.android.gms:play-services:12.0.1'
+    implementation 'com.google.android.gms:play-services:11.4.0'
 
     //circle image view
     implementation 'de.hdodenhof:circleimageview:3.0.0'

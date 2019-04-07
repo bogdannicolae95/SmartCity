@@ -1,19 +1,26 @@
 package com.example.nicolaebogdan.smartcity.main;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.nicolaebogdan.smartcity.R;
+import com.example.nicolaebogdan.smartcity.SmartCityApp;
 import com.example.nicolaebogdan.smartcity.i.MainView;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 
 import androidx.navigation.NavController;
 import androidx.navigation.NavOptions;
@@ -34,6 +41,9 @@ public class MainActivity extends AppCompatActivity implements MainView {
 //    private LocationListener locationListener;
 
     Unbinder unbinder;
+    private static final String FINE_LOCATIONS = Manifest.permission.ACCESS_FINE_LOCATION;
+    private static final String CORSE_LOCATIONS = Manifest.permission.ACCESS_COARSE_LOCATION;
+    private static final int PERMISSIONS_REQUEST_CODE = 1234;
 
 
     //navigation
@@ -55,18 +65,36 @@ public class MainActivity extends AppCompatActivity implements MainView {
         navController = hostFragment.getNavController();
         setupNavigationDrawer(navController);
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
+        getPermisions();
+    }
+
+    public void getPermisions(){
+        String [] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
+        if(ContextCompat.checkSelfPermission(getApplicationContext(),FINE_LOCATIONS) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getApplicationContext(),CORSE_LOCATIONS) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+            activityPresenter.sessionModel.setLocationPermission(true);
+            activityPresenter.sessionModel.setCameraPermission(true);
+        }else{
+            ActivityCompat.requestPermissions(this,permissions,PERMISSIONS_REQUEST_CODE);
         }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == 0) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
-                    && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-
-            }
+        activityPresenter.sessionModel.setLocationPermission(false);
+        switch (requestCode){
+            case PERMISSIONS_REQUEST_CODE:
+                if (grantResults.length > 0) {
+                    for (int grantResult : grantResults) {
+                        if (grantResult != PackageManager.PERMISSION_GRANTED) {
+                            activityPresenter.sessionModel.setLocationPermission(false);
+                            activityPresenter.sessionModel.setCameraPermission(false);
+                            return;
+                        }
+                    }
+                    //todo deosebire permisii de camera si locatie
+                    activityPresenter.sessionModel.setLocationPermission(true);
+                    activityPresenter.sessionModel.setCameraPermission(true);
+                }
         }
     }
 
@@ -106,6 +134,23 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Override
     public boolean isAllowCamera() {
         return ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    @Override
+    public boolean isGoogleServiceOK() {
+        int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(getApplicationContext());
+
+        if(available == ConnectionResult.SUCCESS){
+            Log.d("MainActivity","is Services ok, Google play services is working ! - MAPS");
+            return true;
+        }else if(GoogleApiAvailability.getInstance().isUserResolvableError(available)){
+            Log.d("MainActivity","an error occured but we can fix it - MAPS");
+            Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(MainActivity.this,available,100);
+            dialog.show();
+        }else{
+            SmartCityApp.notifyWithToast("we can't make map requests", Toast.LENGTH_SHORT);
+        }
+        return false;
     }
 
     @Override

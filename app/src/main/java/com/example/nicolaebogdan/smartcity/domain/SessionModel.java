@@ -42,6 +42,8 @@ public class SessionModel {
     private FirebaseAuth firebaseAuth;
     private DatabaseReference firebaseDatabase;
     private User currentUser;
+    private boolean locationPermision;
+    private boolean camerePermission;
 
     //todo move from here to a special class with constants
     private static final String NOD_KEY = "users";
@@ -52,7 +54,8 @@ public class SessionModel {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance().getReference();
         currentUser = new User();
-
+        locationPermision = false;
+        camerePermission = false;
     }
 
     public FirebaseAuth getFirebaseAuthInstance() {
@@ -174,5 +177,21 @@ public class SessionModel {
 
                     }
                 });
+    }
+
+    public void setLocationPermission(boolean isLocationPermissionOn) {
+        locationPermision = isLocationPermissionOn;
+    }
+
+    public boolean getLocationPermission(){
+        return locationPermision;
+    }
+
+    public void setCameraPermission(boolean isCameraPermissionOn) {
+        camerePermission = isCameraPermissionOn;
+    }
+
+    public boolean getCameraPermission(){
+        return camerePermission;
     }
 }
