@@ -29,5 +29,5 @@
     <string name="fullname">%s %s</string>
     <string name="please_login_to_access_your_account">Please Login to access your account</string>
     <string name="map_title">MAP</string>
-    <string name="google_maps_key">AIzaSyBrGKXdux16ceR0fyaeASS3URghA9P1btg</string>
+    <string name="google_maps_API_key">AIzaSyDFaLSB1CTTS22vtCr0RlAuL4k2Iz3I4w0</string>
 </resources>

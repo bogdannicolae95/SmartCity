@@ -12,4 +12,12 @@ class MapPresenter extends AbstractFragmentPresenter {
     public boolean isAllowLocation() {
         return activityPresenter.sessionModel.getLocationPermission();
     }
+
+    public void setLocationPermission(boolean b) {
+        activityPresenter.sessionModel.setLocationPermission(b);
+    }
+
+    public void requestPermisionsFromMapFragment(boolean requestFromMapFragment) {
+        activityPresenter.sessionModel.setRequestFromMapFragment(requestFromMapFragment);
+    }
 }

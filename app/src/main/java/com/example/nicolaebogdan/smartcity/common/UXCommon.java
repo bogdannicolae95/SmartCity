@@ -50,6 +50,7 @@ public class UXCommon {
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
         alert.setTitle("Request Permissions Dialog");
         alert.setMessage(message);
+        alert.setCancelable(false);
         alert.setPositiveButton("Get Permission",
                 (dialog, which) -> {
                     permissionStateCallback.onGetPermissionsClicked();

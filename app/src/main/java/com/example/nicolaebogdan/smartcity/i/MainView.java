@@ -26,5 +26,8 @@ public interface MainView {
 
     void requestPermissionsAgain();
 
+    void requestLocationsPermisionAgain();
+
 //    void getLocationPermissions();
+
 }

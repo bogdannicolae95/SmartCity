@@ -44,6 +44,7 @@ public class SessionModel {
     private User currentUser;
     private boolean locationPermision;
     private boolean camerePermission;
+    private boolean requestPermissionFromMapFragment;
 
     //todo move from here to a special class with constants
     private static final String NOD_KEY = "users";
@@ -56,6 +57,7 @@ public class SessionModel {
         currentUser = new User();
         locationPermision = false;
         camerePermission = false;
+        requestPermissionFromMapFragment = false;
     }
 
     public FirebaseAuth getFirebaseAuthInstance() {
@@ -193,5 +195,13 @@ public class SessionModel {
 
     public boolean getCameraPermission(){
         return camerePermission;
+    }
+
+    public void setRequestFromMapFragment(boolean requestFromMap) {
+        requestPermissionFromMapFragment = requestFromMap;
+    }
+
+    public boolean isRequestPermissionFromMapFragment() {
+        return requestPermissionFromMapFragment;
     }
 }

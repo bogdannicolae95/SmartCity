@@ -19,7 +19,7 @@
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/mapContainer"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -33,12 +33,50 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <RelativeLayout
+            android:id="@+id/search_container"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/white_border"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/ic_magnify"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/ic_magnify"/>
+            
+            <EditText
+                android:id="@+id/input_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toEndOf="@+id/ic_magnify"
+                android:layout_centerVertical="true"
+                android:textSize="15sp"
+                android:textColor="#000"
+                android:background="@null"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="10dp"
+                android:hint="Enter Address, City or Zip Code"
+
+                />
+
+
+        </RelativeLayout>
+
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/noPermisionsContainer"
         android:layout_width="match_parent"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_height="match_parent">
 
         <TextView
@@ -54,6 +92,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/getPermissions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/shape_signout_btn"
+            android:padding="16dp"
+            android:text="Get Permissions"
+            android:textColor="@color/fw_white"
+            app:layout_constraintEnd_toEndOf="@+id/noLocationsPermissions"
+            app:layout_constraintStart_toStartOf="@+id/noLocationsPermissions"
+            app:layout_constraintTop_toBottomOf="@+id/noLocationsPermissions" />
 
     </android.support.constraint.ConstraintLayout>
 

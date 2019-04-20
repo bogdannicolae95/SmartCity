@@ -33,7 +33,8 @@
         android:id="@+id/mapFragment"
         android:name="com.example.nicolaebogdan.smartcity.ux.home.maps.MapFragment"
         android:label="Map"
-        tools:layout="@layout/fragment_map"/>
+        tools:layout="@layout/fragment_map">
+    </fragment>
     <!-- END MAP -->
 
     <!--MY ACCOUNT-->

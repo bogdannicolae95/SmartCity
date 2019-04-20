@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
     Unbinder unbinder;
     private static final String FINE_LOCATIONS = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String CORSE_LOCATIONS = Manifest.permission.ACCESS_COARSE_LOCATION;
-    private static final int PERMISSIONS_REQUEST_CODE = 1234;
+    public static final int LOCATIONS_PERMISSIONS_REQUEST_CODE = 1234;
 
 
     //navigation
@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
     DrawerLayout drawerLayout;
     @BindView(R.id.sign_up_btn)
     Button fab;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,35 +66,52 @@ public class MainActivity extends AppCompatActivity implements MainView {
         navController = hostFragment.getNavController();
         setupNavigationDrawer(navController);
 
-        getPermisions();
+        getLocationPermisions();
     }
 
-    public void getPermisions(){
-        String [] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
-        if(ContextCompat.checkSelfPermission(getApplicationContext(),FINE_LOCATIONS) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getApplicationContext(),CORSE_LOCATIONS) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
-            activityPresenter.sessionModel.setLocationPermission(true);
-            activityPresenter.sessionModel.setCameraPermission(true);
+    public void getLocationPermisions(){
+
+        String [] permissions = {Manifest.permission.ACCESS_FINE_LOCATION , Manifest.permission.ACCESS_COARSE_LOCATION};
+
+        if(ContextCompat.checkSelfPermission(getApplicationContext(),FINE_LOCATIONS) == PackageManager.PERMISSION_GRANTED){
+            if(ContextCompat.checkSelfPermission(getApplicationContext(),CORSE_LOCATIONS) == PackageManager.PERMISSION_GRANTED){
+                activityPresenter.sessionModel.setLocationPermission(true);
+            }else {
+                activityPresenter.sessionModel.setRequestFromMapFragment(false);
+                ActivityCompat.requestPermissions(this,permissions,LOCATIONS_PERMISSIONS_REQUEST_CODE);
+            }
         }else{
-            ActivityCompat.requestPermissions(this,permissions,PERMISSIONS_REQUEST_CODE);
+            activityPresenter.sessionModel.setRequestFromMapFragment(false);
+            ActivityCompat.requestPermissions(this,permissions,LOCATIONS_PERMISSIONS_REQUEST_CODE);
         }
+
+//        String [] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
+//        if(ContextCompat.checkSelfPermission(getApplicationContext(),FINE_LOCATIONS) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getApplicationContext(),CORSE_LOCATIONS) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+//            activityPresenter.sessionModel.setLocationPermission(true);
+//            activityPresenter.sessionModel.setCameraPermission(true);
+//        }else{
+//            ActivityCompat.requestPermissions(this,permissions,PERMISSIONS_REQUEST_CODE);
+//        }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         activityPresenter.sessionModel.setLocationPermission(false);
-        switch (requestCode){
-            case PERMISSIONS_REQUEST_CODE:
+        switch (requestCode) {
+            case LOCATIONS_PERMISSIONS_REQUEST_CODE:
                 if (grantResults.length > 0) {
                     for (int grantResult : grantResults) {
                         if (grantResult != PackageManager.PERMISSION_GRANTED) {
                             activityPresenter.sessionModel.setLocationPermission(false);
-                            activityPresenter.sessionModel.setCameraPermission(false);
                             return;
                         }
                     }
-                    //todo deosebire permisii de camera si locatie
                     activityPresenter.sessionModel.setLocationPermission(true);
-                    activityPresenter.sessionModel.setCameraPermission(true);
+                    if(activityPresenter.sessionModel.isRequestPermissionFromMapFragment()) {
+                        NavOptions.Builder navBuilder = new NavOptions.Builder();
+                        NavOptions navOptions = navBuilder.setPopUpTo(R.id.homeFragment, false).build();
+                        getNavController().navigate(R.id.mapFragment, null, navOptions);
+                    }
                 }
         }
     }
@@ -156,6 +174,12 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Override
     public void requestPermissionsAgain() {
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
+    }
+
+    @Override
+    public void requestLocationsPermisionAgain() {
+        String [] permissions = {Manifest.permission.ACCESS_FINE_LOCATION , Manifest.permission.ACCESS_COARSE_LOCATION};
+        ActivityCompat.requestPermissions(this,permissions,LOCATIONS_PERMISSIONS_REQUEST_CODE);
     }
 
 
