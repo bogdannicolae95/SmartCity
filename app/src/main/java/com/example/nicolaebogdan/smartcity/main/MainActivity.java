@@ -2,25 +2,39 @@ package com.example.nicolaebogdan.smartcity.main;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.nicolaebogdan.smartcity.R;
 import com.example.nicolaebogdan.smartcity.SmartCityApp;
+import com.example.nicolaebogdan.smartcity.common.GoToMapCallback;
+import com.example.nicolaebogdan.smartcity.common.UXCommon;
 import com.example.nicolaebogdan.smartcity.i.MainView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import androidx.navigation.NavController;
 import androidx.navigation.NavOptions;
@@ -32,10 +46,13 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 import static android.support.v4.view.GravityCompat.START;
-public class MainActivity extends AppCompatActivity implements MainView {
+public class MainActivity extends AppCompatActivity implements MainView, GoToMapCallback {
 
     NavController navController;
     MainActivityPresenter activityPresenter;
+
+    public FusedLocationProviderClient fusedLocationProviderClient;
+    Location currentLocation;
 
 //    private LocationManager locationManager;
 //    private LocationListener locationListener;
@@ -67,6 +84,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
         setupNavigationDrawer(navController);
 
         getLocationPermisions();
+
+        getDeviceLocations();
     }
 
     public void getLocationPermisions(){
@@ -92,6 +111,42 @@ public class MainActivity extends AppCompatActivity implements MainView {
 //        }else{
 //            ActivityCompat.requestPermissions(this,permissions,PERMISSIONS_REQUEST_CODE);
 //        }
+    }
+
+    public void getDeviceLocations(){
+
+            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        try{
+            if(activityPresenter.sessionModel.getLocationPermission()){
+                if(fusedLocationProviderClient != null){
+                    Task location = fusedLocationProviderClient.getLastLocation();
+                    location.addOnCompleteListener(new OnCompleteListener() {
+                        @Override
+                        public void onComplete(@NonNull Task task) {
+                            if(task.isSuccessful()){
+                                currentLocation = (Location) task.getResult();
+                                Geocoder geocoder = new Geocoder(getApplicationContext());
+                                List<Address> addresses = new ArrayList<>();
+
+                                try {
+                                    addresses = geocoder.getFromLocation(currentLocation.getLatitude(),currentLocation.getLongitude(),1);
+                                    if(addresses.get(0).getLocality() != null) {
+                                        UXCommon.showLocalityPopup(String.format(SmartCityApp.getStringResource(R.string.welcome_msj),addresses.get(0).getLocality()), MainActivity.this, MainActivity.this);
+                                    }
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }else{
+                                SmartCityApp.notifyWithToast("unable to get current location", Toast.LENGTH_SHORT);
+                            }
+                        }
+                    });
+                }
+            }
+        }catch (SecurityException e){
+            Log.e("MapFragment","securityException : " + e.getMessage());
+        }
     }
 
     @Override
@@ -182,6 +237,18 @@ public class MainActivity extends AppCompatActivity implements MainView {
         ActivityCompat.requestPermissions(this,permissions,LOCATIONS_PERMISSIONS_REQUEST_CODE);
     }
 
+    @Override
+    public void hideKeyword() {
+        // Check if no view has focus:
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            if(imm != null) {
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
+        }
+    }
+
 
     @Override
     protected void onDestroy() {
@@ -210,5 +277,10 @@ public class MainActivity extends AppCompatActivity implements MainView {
                 .build();
         Bundle bundle = new Bundle();
         navController.navigate(R.id.signupFragment, bundle, options);
+    }
+
+    @Override
+    public void onGoToMapClicked() {
+        navController.navigate(R.id.mapFragment);
     }
 }

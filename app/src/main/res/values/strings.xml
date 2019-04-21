@@ -30,4 +30,5 @@
     <string name="please_login_to_access_your_account">Please Login to access your account</string>
     <string name="map_title">MAP</string>
     <string name="google_maps_API_key">AIzaSyDFaLSB1CTTS22vtCr0RlAuL4k2Iz3I4w0</string>
+    <string name="welcome_msj">Welcome to %s.\nWe wish you a pleasant stay!</string>
 </resources>

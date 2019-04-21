@@ -30,4 +30,6 @@ public interface MainView {
 
 //    void getLocationPermissions();
 
+    void hideKeyword();
+
 }

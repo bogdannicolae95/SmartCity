@@ -2,17 +2,13 @@ package com.example.nicolaebogdan.smartcity.common;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.StyleRes;
 import android.support.v7.app.AlertDialog;
 
-import com.example.nicolaebogdan.smartcity.R;
 import com.example.nicolaebogdan.smartcity.i.ErrorsStateCallback;
 import com.example.nicolaebogdan.smartcity.ux.home.myAccount.i.PermissionStateCallback;
-
-import java.security.Permission;
 
 public class UXCommon {
 
@@ -59,6 +55,24 @@ public class UXCommon {
         alert.setNegativeButton("Cancel",
                 (dialog, which) -> {
                     permissionStateCallback.onPermissionsCancelClicked();
+                    dialog.cancel();
+                });
+
+        alert.show();
+    }
+
+    public static void showLocalityPopup(String message, Context context,GoToMapCallback goToMapCallback){
+        AlertDialog.Builder alert = new android.support.v7.app.AlertDialog.Builder(context);
+        alert.setTitle("Location Dialog");
+        alert.setMessage(message);
+        alert.setCancelable(false);
+        alert.setPositiveButton("Go to Maps",
+                (dialog, which) -> {
+                    goToMapCallback.onGoToMapClicked();
+                    dialog.cancel();
+                });
+        alert.setNegativeButton("Cancel",
+                (dialog, which) -> {
                     dialog.cancel();
                 });
 
