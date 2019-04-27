@@ -16,33 +16,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4d602b26-bf4d-47b3-a48f-03d0c11a9f5d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_volley_volley_1_1_1_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_annotations_4_3_1_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_disklrucache_4_3_1_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_gifdecoder_4_3_1_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_4_3_1_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_base_16_1_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_basement_16_2_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_clearcut_16_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_phenotype_16_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_libraries_places_places_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_libraries_places_places_1_1_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_libraries_places_places_compat_1_1_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_auto_value_auto_value_annotations_1_6_2_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_findbugs_jsr305_1_3_9_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_gson_gson_2_8_5_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_errorprone_error_prone_annotations_2_0_18_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_guava_guava_23_5_android_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_j2objc_j2objc_annotations_1_1_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_checkerframework_checker_qual_2_0_0_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_codehaus_mojo_animal_sniffer_annotations_1_14_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/maps/PlacesAutoCompleteAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/place_recycler_item_layout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/main/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/main/MainActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/maps/MapFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/maps/MapFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_map.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_map.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../build.gradle" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -126,40 +107,40 @@
     <session id="1622935109">
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="class" value="15" />
-          <entry key="gradle" value="16" />
-          <entry key="java" value="94" />
+          <entry key="class" value="26" />
+          <entry key="gradle" value="17" />
+          <entry key="java" value="101" />
           <entry key="pro" value="1" />
           <entry key="properties" value="1" />
-          <entry key="xml" value="66" />
+          <entry key="xml" value="68" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CLASS" value="15" />
-          <entry key="Groovy" value="16" />
-          <entry key="JAVA" value="94" />
+          <entry key="CLASS" value="26" />
+          <entry key="Groovy" value="17" />
+          <entry key="JAVA" value="101" />
           <entry key="ProGuard File" value="1" />
           <entry key="Properties" value="1" />
-          <entry key="XML" value="66" />
+          <entry key="XML" value="68" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="gradle" value="186" />
-          <entry key="java" value="12658" />
+          <entry key="gradle" value="187" />
+          <entry key="java" value="13016" />
           <entry key="pro" value="4" />
           <entry key="txt" value="178" />
-          <entry key="xml" value="2043" />
+          <entry key="xml" value="2153" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Groovy" value="186" />
-          <entry key="JAVA" value="12658" />
+          <entry key="Groovy" value="187" />
+          <entry key="JAVA" value="13016" />
           <entry key="PLAIN_TEXT" value="178" />
           <entry key="ProGuard File" value="4" />
-          <entry key="XML" value="2043" />
+          <entry key="XML" value="2153" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.lifecycle.project">
@@ -178,25 +159,66 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/maps/MapFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="196" column="45" lean-forward="true" selection-start-line="196" selection-start-column="45" selection-end-line="196" selection-end-column="45" />
+            <state relative-caret-position="259">
+              <caret line="426" column="36" lean-forward="true" selection-start-line="426" selection-start-column="36" selection-end-line="426" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#4209#4210#0" expanded="true" />
-                <element signature="e#4253#4254#0" expanded="true" />
-                <element signature="e#4320#4321#0" expanded="true" />
-                <element signature="e#4365#4366#0" expanded="true" />
-                <element signature="e#5602#5630#0" expanded="true" />
-                <element signature="e#6329#6347#0" expanded="true" />
-                <element signature="e#6710#6738#0" expanded="true" />
-                <element signature="e#14532#14533#0" expanded="true" />
-                <element signature="e#14573#14574#0" expanded="true" />
-                <element signature="e#14869#14870#0" expanded="true" />
-                <element signature="e#14910#14911#0" expanded="true" />
+                <element signature="e#5456#5484#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/maps/PlacesAutoCompleteAdapter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="226">
+              <caret line="168" column="5" selection-start-line="168" selection-start-column="5" selection-end-line="168" selection-end-column="5" />
+              <folding>
+                <element signature="e#6876#6877#0" expanded="true" />
+                <element signature="e#6917#6918#0" expanded="true" />
+                <element signature="e#6971#6972#0" expanded="true" />
+                <element signature="e#7019#7020#0" expanded="true" />
+                <element signature="e#9251#9252#0" expanded="true" />
+                <element signature="e#9297#9298#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/main/MainActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="252">
+              <caret line="169" column="41" selection-start-line="169" selection-start-column="41" selection-end-line="169" selection-end-column="41" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#6217#6237#0" expanded="true" />
+                <element signature="e#11792#11793#0" expanded="true" />
+                <element signature="e#11848#11849#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/res/layout/place_recycler_item_layout.xml">
+          <provider editor-type-id="android-designer2" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="476">
+              <caret line="28" column="67" selection-start-line="28" selection-start-column="67" selection-end-line="28" selection-end-column="67" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/build.gradle">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="357">
+              <caret line="56" column="69" selection-start-line="56" selection-start-column="69" selection-end-line="56" selection-end-column="69" />
             </state>
           </provider>
         </entry>
@@ -205,46 +227,10 @@
         <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_map.xml">
           <provider editor-type-id="android-designer2" />
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="118">
-              <caret line="71" column="54" selection-start-line="71" selection-start-column="33" selection-end-line="71" selection-end-column="54" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/build.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="58" column="71" selection-start-line="58" selection-start-column="71" selection-end-line="58" selection-end-column="71" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../build.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="7" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/res/values/strings.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="30" column="41" selection-start-line="30" selection-start-column="41" selection-end-line="30" selection-end-column="41" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/common/UXCommon.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1020">
-              <caret line="68" column="43" selection-start-line="68" selection-start-column="43" selection-end-line="68" selection-end-column="43" />
+            <state relative-caret-position="254">
+              <caret line="78" column="47" selection-start-line="78" selection-start-column="9" selection-end-line="78" selection-end-column="47" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#3689#3729#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -254,22 +240,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/common/GoToMapCallback.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="51">
-              <caret line="3" column="28" selection-start-line="3" selection-start-column="28" selection-end-line="3" selection-end-column="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/domain/SessionModel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2584">
-              <caret line="187" column="19" selection-start-line="187" selection-start-column="19" selection-end-line="187" selection-end-column="19" />
-              <folding>
-                <element signature="e#8450#8451#0" expanded="true" />
-                <element signature="e#8490#8491#0" expanded="true" />
-                <element signature="e#8889#8890#0" expanded="true" />
-                <element signature="e#8944#8945#0" expanded="true" />
-              </folding>
+              <caret line="3" selection-start-line="3" selection-end-line="3" />
             </state>
           </provider>
         </entry>
@@ -279,10 +250,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="layoutResourceFile" />
         <option value="resourceFile" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="layoutResourceFile" />
       </list>
     </option>
   </component>
@@ -299,6 +270,9 @@
       <find>latLngBounds</find>
       <find>v4</find>
       <find>fragment</find>
+      <find>mRow</find>
+      <find>mResultList</find>
+      <find>placesClient</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -307,7 +281,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/auth/SignupPresenter.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/common/MyLocationListener.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/main/MapsActivity.java" />
         <option value="$PROJECT_DIR$/src/main/res/layout/fragment_login.xml" />
@@ -348,14 +321,16 @@
         <option value="$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/main/GoToMapCallback.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/common/GoToMapCallback.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/common/UXCommon.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/main/MainActivity.java" />
         <option value="$PROJECT_DIR$/proguard-rules.pro" />
         <option value="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/maps/PlaceAutoCompleteAdapter.java" />
-        <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/fragment_map.xml" />
         <option value="$PROJECT_DIR$/../build.gradle" />
+        <option value="$PROJECT_DIR$/build.gradle" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/place_recycler_item_layout.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/fragment_map.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/maps/PlacesAutoCompleteAdapter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/main/MainActivity.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/maps/MapFragment.java" />
       </list>
     </option>
@@ -384,7 +359,39 @@
             <path>
               <item name="SmartCity" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="manifests" type="f94875db:AndroidManifestsGroupNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+            </path>
+            <path>
+              <item name="SmartCity" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="smartcity" type="cbb59c9e:AndroidPsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SmartCity" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="smartcity" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="home" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SmartCity" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="smartcity" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="home" type="462c0819:PsiDirectoryNode" />
+              <item name="maps" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SmartCity" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+            </path>
+            <path>
+              <item name="SmartCity" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
             </path>
             <path>
               <item name="SmartCity" type="1abcf292:AndroidViewProjectNode" />
@@ -552,7 +559,7 @@
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
       <window_info id="Capture Tool" order="1" />
-      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.21275167" />
+      <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.21275167" />
       <window_info id="Structure" order="3" side_tool="true" />
       <window_info id="Build Variants" order="4" side_tool="true" />
       <window_info id="Image Layers" order="5" />
@@ -561,7 +568,7 @@
       <window_info anchor="bottom" id="Logcat" order="0" weight="0.4326241" />
       <window_info anchor="bottom" id="TODO" order="1" />
       <window_info anchor="bottom" id="Android Profiler" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.32907802" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3248227" />
       <window_info anchor="bottom" id="Run" order="4" weight="0.32907802" />
       <window_info anchor="bottom" id="Event Log" order="5" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="6" show_stripe_button="false" />
@@ -585,22 +592,23 @@
       <window_info id="Image Layers" order="5" />
       <window_info id="Designer" order="6" />
       <window_info id="Favorites" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Logcat" order="0" weight="0.32907802" />
+      <window_info anchor="bottom" id="Logcat" order="0" weight="0.4326241" />
       <window_info anchor="bottom" id="TODO" order="1" />
       <window_info anchor="bottom" id="Android Profiler" order="2" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.32907802" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3248227" />
       <window_info anchor="bottom" id="Run" order="4" weight="0.32907802" />
       <window_info anchor="bottom" id="Event Log" order="5" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="6" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Build" order="7" weight="0.32907802" />
+      <window_info anchor="bottom" id="Build" order="7" weight="0.3248227" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Find" order="9" weight="0.32907802" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
-      <window_info anchor="right" id="Gradle" order="2" />
+      <window_info anchor="right" id="Gradle" order="2" weight="0.3295302" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info anchor="right" id="Palette&#9;" order="4" />
       <window_info anchor="right" id="Preview" order="5" weight="0.32885906" />
+      <window_info anchor="right" id="Assistant" order="6" weight="0.3295302" />
     </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -635,25 +643,25 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/maps/MapFragment.java</url>
-          <line>354</line>
+          <line>365</line>
           <properties />
           <option name="timeStamp" value="25" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/maps/MapFragment.java</url>
-          <line>366</line>
+          <line>377</line>
           <properties />
           <option name="timeStamp" value="29" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/maps/MapFragment.java</url>
-          <line>374</line>
+          <line>385</line>
           <properties />
           <option name="timeStamp" value="30" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/maps/MapFragment.java</url>
-          <line>371</line>
+          <line>382</line>
           <properties />
           <option name="timeStamp" value="32" />
         </line-breakpoint>
@@ -664,12 +672,6 @@
           <option name="timeStamp" value="34" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/maps/MapFragment.java</url>
-          <line>275</line>
-          <properties />
-          <option name="timeStamp" value="40" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/maps/PlaceAutoCompleteAdapter.java</url>
           <line>211</line>
           <properties />
@@ -677,69 +679,164 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/maps/MapFragment.java</url>
-          <line>197</line>
+          <line>207</line>
           <properties />
           <option name="timeStamp" value="45" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/maps/MapFragment.java</url>
-          <line>212</line>
+          <line>222</line>
           <properties />
           <option name="timeStamp" value="46" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/maps/MapFragment.java</url>
-          <line>200</line>
+          <line>210</line>
           <properties />
           <option name="timeStamp" value="47" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/maps/MapFragment.java</url>
-          <line>409</line>
+          <line>420</line>
           <properties />
           <option name="timeStamp" value="48" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/maps/MapFragment.java</url>
-          <line>192</line>
+          <line>202</line>
           <properties />
           <option name="timeStamp" value="53" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/maps/MapFragment.java</url>
-          <line>147</line>
+          <line>134</line>
           <properties />
           <option name="timeStamp" value="54" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/maps/MapFragment.java</url>
-          <line>149</line>
+          <line>136</line>
           <properties />
           <option name="timeStamp" value="55" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/maps/MapFragment.java</url>
-          <line>273</line>
+          <line>284</line>
           <properties />
           <option name="timeStamp" value="56" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/maps/MapFragment.java</url>
-          <line>289</line>
+          <line>300</line>
           <properties />
           <option name="timeStamp" value="57" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/maps/MapFragment.java</url>
-          <line>184</line>
+          <line>193</line>
           <properties />
           <option name="timeStamp" value="60" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/maps/MapFragment.java</url>
+          <line>177</line>
+          <properties />
+          <option name="timeStamp" value="64" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/maps/MapFragment.java</url>
+          <line>446</line>
+          <properties />
+          <option name="timeStamp" value="71" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/maps/PlacesAutoCompleteAdapter.java</url>
+          <line>96</line>
+          <properties />
+          <option name="timeStamp" value="72" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/maps/PlacesAutoCompleteAdapter.java</url>
+          <line>78</line>
+          <properties />
+          <option name="timeStamp" value="76" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/maps/PlacesAutoCompleteAdapter.java</url>
+          <line>108</line>
+          <properties />
+          <option name="timeStamp" value="77" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/maps/PlacesAutoCompleteAdapter.java</url>
+          <line>136</line>
+          <properties />
+          <option name="timeStamp" value="80" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/maps/MapFragment.java</url>
+          <line>178</line>
+          <properties />
+          <option name="timeStamp" value="81" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/maps/PlacesAutoCompleteAdapter.java</url>
+          <line>187</line>
+          <properties />
+          <option name="timeStamp" value="84" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/maps/PlacesAutoCompleteAdapter.java</url>
+          <line>201</line>
+          <properties />
+          <option name="timeStamp" value="86" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/maps/PlacesAutoCompleteAdapter.java</url>
+          <line>195</line>
+          <properties />
+          <option name="timeStamp" value="87" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>findAutocompletePredictionsResponse</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>results.count</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>results.values</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>results</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>request</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>placeId</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>item</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>Places.initialize(getApplicationContext(), SmartCityApp.getStringResource(R.string.google_maps_API_key))</expression-string>
         <language-id>JAVA</language-id>
@@ -750,103 +847,9 @@
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
-      <expression>
-        <expression-string>getActivity()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>mapView</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>user.getEmail()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>fragmentPresenter.isUserLoggin()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>dataSnapshot.getValue(User.class).getEmail()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>user</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/res/values/colors.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="48" selection-start-line="8" selection-start-column="48" selection-end-line="8" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/support-fragment-28.0.0.aar/385a5b74e3b9878a2eb86745dd4ad7cf/jars/classes.jar!/android/support/v4/app/FragmentActivity.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="144" column="16" selection-start-line="144" selection-start-column="16" selection-end-line="144" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/AppData/Local/Android/Sdk/platforms/android-28/android.jar!/android/content/Context.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="177" column="26" selection-start-line="177" selection-start-column="26" selection-end-line="177" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/SmartCityApp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="46" column="59" selection-start-line="46" selection-start-column="48" selection-end-line="46" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/myAccount/i/OnSaveProfileImageCallback.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/domain/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="20" column="27" selection-start-line="20" selection-start-column="19" selection-end-line="20" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/home/i/OnGetUserInfoFromFirebaseCallback.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/AppData/Local/Android/Sdk/platforms/android-28/android.jar!/android/app/ProgressDialog.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="105" column="16" selection-start-line="105" selection-start-column="16" selection-end-line="105" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/i/PermissionStateCallback.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/i/ErrorsStateCallback.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/myAccount/MyAccountPresenter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -1003,23 +1006,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/main/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1190">
-          <caret line="133" column="165" selection-start-line="133" selection-start-column="165" selection-end-line="133" selection-end-column="165" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#6217#6237#0" expanded="true" />
-            <element signature="e#8211#8212#0" expanded="true" />
-            <element signature="e#8251#8252#0" expanded="true" />
-            <element signature="e#8312#8313#0" expanded="true" />
-            <element signature="e#8348#8349#0" expanded="true" />
-            <element signature="e#11740#11741#0" expanded="true" />
-            <element signature="e#11796#11797#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/proguard-rules.pro">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -1047,26 +1033,6 @@
           <caret line="68" column="43" selection-start-line="68" selection-start-column="43" selection-end-line="68" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/common/GoToMapCallback.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="28" selection-start-line="3" selection-start-column="28" selection-end-line="3" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/domain/SessionModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2584">
-          <caret line="187" column="19" selection-start-line="187" selection-start-column="19" selection-end-line="187" selection-end-column="19" />
-          <folding>
-            <element signature="e#8450#8451#0" expanded="true" />
-            <element signature="e#8490#8491#0" expanded="true" />
-            <element signature="e#8889#8890#0" expanded="true" />
-            <element signature="e#8944#8945#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1099,7 +1065,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
+        <state relative-caret-position="460">
           <caret line="30" column="41" selection-start-line="30" selection-start-column="41" selection-end-line="30" selection-end-column="41" />
         </state>
       </provider>
@@ -1115,13 +1081,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="58" column="71" selection-start-line="58" selection-start-column="71" selection-end-line="58" selection-end-column="71" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -1129,19 +1088,33 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_map.xml">
-      <provider editor-type-id="android-designer2" />
+    <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="118">
-          <caret line="71" column="54" selection-start-line="71" selection-start-column="33" selection-end-line="71" selection-end-column="54" />
+        <state relative-caret-position="357">
+          <caret line="56" column="69" selection-start-line="56" selection-start-column="69" selection-end-line="56" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/places-1.1.0.aar/5529aedaabfe0b4fe35c23f8cb001bc5/jars/classes.jar!/com/google/android/libraries/places/api/net/PlacesClient.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="13" column="46" selection-start-line="13" selection-start-column="46" selection-end-line="13" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/generated/source/apt/debug/com/example/nicolaebogdan/smartcity/ux/home/maps/MapFragment_ViewBinding.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="40" selection-start-line="40" selection-end-line="40" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/i/abstr/AbstractFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
-          <caret line="8" column="39" selection-start-line="8" selection-start-column="39" selection-end-line="8" selection-end-column="39" />
+          <caret line="39" selection-start-line="39" selection-end-line="39" />
           <folding>
+            <element signature="imports" expanded="true" />
             <element signature="e#1601#1602#0" expanded="true" />
             <element signature="e#1647#1648#0" expanded="true" />
             <element signature="e#1788#1789#0" expanded="true" />
@@ -1150,23 +1123,126 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/maps/MapFragment.java">
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/place_recycler_item_layout.xml">
+      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="196" column="45" lean-forward="true" selection-start-line="196" selection-start-column="45" selection-end-line="196" selection-end-column="45" />
+        <state relative-caret-position="476">
+          <caret line="28" column="67" selection-start-line="28" selection-start-column="67" selection-end-line="28" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/places-1.1.0.aar/5529aedaabfe0b4fe35c23f8cb001bc5/jars/classes.jar!/com/google/android/libraries/places/api/net/FindAutocompletePredictionsRequest.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="19" column="22" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/places-1.1.0.aar/5529aedaabfe0b4fe35c23f8cb001bc5/jars/classes.jar!/com/google/android/libraries/places/api/net/FindAutocompletePredictionsResponse.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="15" column="22" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/AppData/Local/Android/Sdk/platforms/android-28/android.jar!/android/widget/Filter.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="22" column="28" selection-start-line="22" selection-start-column="28" selection-end-line="22" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/AppData/Local/Android/Sdk/platforms/android-28/android.jar!/android/widget/Filterable.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/AppData/Local/Android/Sdk/platforms/android-28/android.jar!/android/widget/TextView.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="335">
+          <caret line="1294" selection-start-line="1294" selection-end-line="1294" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/AppData/Local/Android/Sdk/platforms/android-28/android.jar!/android/view/View.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="336" column="19" selection-start-line="336" selection-start-column="19" selection-end-line="336" selection-end-column="19" />
+          <folding>
+            <element signature="e#15764#15765#0" expanded="true" />
+            <element signature="e#15815#15816#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/domain/SessionModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="219">
+          <caret line="46" column="52" selection-start-line="46" selection-start-column="20" selection-end-line="46" selection-end-column="52" />
+          <folding>
+            <element signature="e#8450#8451#0" expanded="true" />
+            <element signature="e#8490#8491#0" expanded="true" />
+            <element signature="e#8889#8890#0" expanded="true" />
+            <element signature="e#8944#8945#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_map.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="78" column="47" selection-start-line="78" selection-start-column="9" selection-end-line="78" selection-end-column="47" />
+          <folding>
+            <element signature="e#3689#3729#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/common/GoToMapCallback.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/main/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="169" column="41" selection-start-line="169" selection-start-column="41" selection-end-line="169" selection-end-column="41" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4209#4210#0" expanded="true" />
-            <element signature="e#4253#4254#0" expanded="true" />
-            <element signature="e#4320#4321#0" expanded="true" />
-            <element signature="e#4365#4366#0" expanded="true" />
-            <element signature="e#5602#5630#0" expanded="true" />
-            <element signature="e#6329#6347#0" expanded="true" />
-            <element signature="e#6710#6738#0" expanded="true" />
-            <element signature="e#14532#14533#0" expanded="true" />
-            <element signature="e#14573#14574#0" expanded="true" />
-            <element signature="e#14869#14870#0" expanded="true" />
-            <element signature="e#14910#14911#0" expanded="true" />
+            <element signature="e#6217#6237#0" expanded="true" />
+            <element signature="e#11792#11793#0" expanded="true" />
+            <element signature="e#11848#11849#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/maps/MapFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="259">
+          <caret line="426" column="36" lean-forward="true" selection-start-line="426" selection-start-column="36" selection-end-line="426" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#5456#5484#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/nicolaebogdan/smartcity/ux/home/maps/PlacesAutoCompleteAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="168" column="5" selection-start-line="168" selection-start-column="5" selection-end-line="168" selection-end-column="5" />
+          <folding>
+            <element signature="e#6876#6877#0" expanded="true" />
+            <element signature="e#6917#6918#0" expanded="true" />
+            <element signature="e#6971#6972#0" expanded="true" />
+            <element signature="e#7019#7020#0" expanded="true" />
+            <element signature="e#9251#9252#0" expanded="true" />
+            <element signature="e#9297#9298#0" expanded="true" />
           </folding>
         </state>
       </provider>

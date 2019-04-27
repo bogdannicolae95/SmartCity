@@ -167,6 +167,7 @@ public class MainActivity extends AppCompatActivity implements MainView, GoToMap
                         NavOptions navOptions = navBuilder.setPopUpTo(R.id.homeFragment, false).build();
                         getNavController().navigate(R.id.mapFragment, null, navOptions);
                     }
+                    getDeviceLocations();
                 }
         }
     }

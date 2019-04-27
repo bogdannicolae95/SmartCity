@@ -1,7 +1,6 @@
 package com.example.nicolaebogdan.smartcity.ux.home.maps;
 
 import android.Manifest;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -16,14 +15,17 @@ import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -37,42 +39,24 @@ import com.example.nicolaebogdan.smartcity.common.UXCommon;
 import com.example.nicolaebogdan.smartcity.i.MainView;
 import com.example.nicolaebogdan.smartcity.i.abstr.AbstractFragment;
 import com.example.nicolaebogdan.smartcity.ux.home.myAccount.i.PermissionStateCallback;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.places.GeoDataClient;
-import com.google.android.gms.location.places.PlaceDetectionClient;
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.LocationSource;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.MapsInitializer;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.api.net.PlacesClient;
-import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
-import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
-import com.google.maps.android.SphericalUtil;
-
 import com.google.android.libraries.places.api.Places;
-
+import com.google.android.libraries.places.api.model.Place;
+import com.google.maps.android.SphericalUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -83,7 +67,7 @@ import static android.view.View.VISIBLE;
 import static com.example.nicolaebogdan.smartcity.main.MainActivity.LOCATIONS_PERMISSIONS_REQUEST_CODE;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
-public class MapFragment extends AbstractFragment<MainView, MapPresenter> implements PermissionStateCallback {
+public class MapFragment extends AbstractFragment<MainView, MapPresenter> implements PermissionStateCallback,PlacesAutoCompleteAdapter.ClickListener {
 
     public static final Float DEFAULT_ZOOM = 15f;
 
@@ -103,8 +87,8 @@ public class MapFragment extends AbstractFragment<MainView, MapPresenter> implem
     @BindView(R.id.search_container)
     RelativeLayout searchContainer;
 
-//    @BindView(R.id.input_search)
-//    AutoCompleteTextView searchInput;
+    @BindView(R.id.input_search)
+    EditText searchInput;
 
     @BindView(R.id.ic_gps)
     ImageView gpsImgBtn;
@@ -114,11 +98,13 @@ public class MapFragment extends AbstractFragment<MainView, MapPresenter> implem
 
     Location currentLocation;
 
-    public PlaceAutoCompleteAdapter placeAutoCompleteAdapter;
-
     LatLngBounds latLngBounds;
 
-    GoogleApiClient googleApiClient;
+    @BindView(R.id.places_recycler_view)
+    RecyclerView recyclerView;
+    PlacesAutoCompleteAdapter mAutoCompleteAdapter;
+
+
 
     private static final LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(new LatLng(-40,-168),new LatLng(71,136));
 
@@ -143,8 +129,9 @@ public class MapFragment extends AbstractFragment<MainView, MapPresenter> implem
         toolbarTitle = view.findViewById(R.id.toolbar_title);
         getActivityView().hideFab();
 
-//        searchInput.setImeOptions(EditorInfo.IME_ACTION_DONE);
-//        searchInput.setSingleLine(true);
+        searchInput.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        searchInput.setSingleLine(true);
+
         Places.initialize(getApplicationContext(), SmartCityApp.getStringResource(R.string.google_maps_API_key));
 
         if (getActivityView().isGoogleServiceOK()) {
@@ -156,7 +143,6 @@ public class MapFragment extends AbstractFragment<MainView, MapPresenter> implem
         } else {
 
         }
-
         return view;
     }
 
@@ -169,6 +155,12 @@ public class MapFragment extends AbstractFragment<MainView, MapPresenter> implem
         burgerBtn.setOnClickListener(view1 -> {
             openDrawer();
         });
+
+        mAutoCompleteAdapter = new PlacesAutoCompleteAdapter(getApplicationContext());
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        mAutoCompleteAdapter.setClickListener(this);
+        recyclerView.setAdapter(mAutoCompleteAdapter);
+        mAutoCompleteAdapter.notifyDataSetChanged();
     }
 
 //    @Override
@@ -180,40 +172,58 @@ public class MapFragment extends AbstractFragment<MainView, MapPresenter> implem
 //        }
 //    }
 
+    private TextWatcher filterTextWatcher = new TextWatcher() {
+        public void afterTextChanged(Editable s) {
+            if (!s.toString().equals("")) {
+                mAutoCompleteAdapter.getFilter().filter(s.toString());
+                if (recyclerView.getVisibility() == View.GONE) {
+                    recyclerView.setVisibility(View.VISIBLE);
+                }
+            } else {
+                if (recyclerView.getVisibility() == View.VISIBLE) {
+                    recyclerView.setVisibility(View.GONE);
+                }
+            }
+        }
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+        public void onTextChanged(CharSequence s, int start, int before, int count) { }
+    };
+
     private void init(){
 
         if (!Places.isInitialized()) {
             Places.initialize(getApplicationContext(), SmartCityApp.getStringResource(R.string.google_maps_API_key));
         }
 
-        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
-                getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment);
-
-        if(autocompleteFragment != null) {
-            autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG, Place.Field.ADDRESS));
-
-            autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-                @Override
-                public void onPlaceSelected(@NonNull Place place) {
-                    String placeName = place.getName();
-                    LatLng placeLatLng = place.getLatLng();
-                    String placeAddress = place.getAddress();
-                    if (placeName != null) {
-                        moveCamera(placeLatLng, DEFAULT_ZOOM, placeName);
-                    } else if (placeAddress != null) {
-                        moveCamera(placeLatLng, DEFAULT_ZOOM, placeAddress);
-                    } else {
-                        moveCamera(placeLatLng, DEFAULT_ZOOM, "");
-                    }
-                }
-
-                @Override
-                public void onError(@NonNull Status status) {
-                    SmartCityApp.notifyWithToast(status.getStatusMessage(), Toast.LENGTH_SHORT);
-                    Log.i("MapFragment", "An error occurred: " + status);
-                }
-            });
-        }
+        searchInput.addTextChangedListener(filterTextWatcher);
+//        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
+//                getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment);
+//
+//        if(autocompleteFragment != null) {
+//            autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG, Place.Field.ADDRESS));
+//
+//            autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+//                @Override
+//                public void onPlaceSelected(@NonNull Place place) {
+//                    String placeName = place.getName();
+//                    LatLng placeLatLng = place.getLatLng();
+//                    String placeAddress = place.getAddress();
+//                    if (placeName != null) {
+//                        moveCamera(placeLatLng, DEFAULT_ZOOM, placeName);
+//                    } else if (placeAddress != null) {
+//                        moveCamera(placeLatLng, DEFAULT_ZOOM, placeAddress);
+//                    } else {
+//                        moveCamera(placeLatLng, DEFAULT_ZOOM, "");
+//                    }
+//                }
+//
+//                @Override
+//                public void onError(@NonNull Status status) {
+//                    SmartCityApp.notifyWithToast(status.getStatusMessage(), Toast.LENGTH_SHORT);
+//                    Log.i("MapFragment", "An error occurred: " + status);
+//                }
+//            });
+//        }
 
 //        if(getActivity() != null) {
 //            googleApiClient = new GoogleApiClient
@@ -237,25 +247,25 @@ public class MapFragment extends AbstractFragment<MainView, MapPresenter> implem
 //
 //
 //
-//        searchInput.setOnEditorActionListener((textView, actionId, keyEvent) -> {
-//            if(actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE || keyEvent.getAction() == KeyEvent.ACTION_DOWN || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER){
-//                geoLocate();
-//            }
-//            return false;
-//        });
+        searchInput.setOnEditorActionListener((textView, actionId, keyEvent) -> {
+            if(actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE || keyEvent.getAction() == KeyEvent.ACTION_DOWN || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER){
+                geoLocate();
+            }
+            return false;
+        });
 
         gpsImgBtn.setOnClickListener(view -> {
             getDeviceLocations();
         });
     }
 
-    private void geoLocate(String query){
-//        String searchString = searchInput.getText().toString();
+    private void geoLocate(){
+        String searchString = searchInput.getText().toString();
         Geocoder geocoder = new Geocoder(getContext());
         List<Address> addressList = new ArrayList<>();
 
         try{
-            addressList = geocoder.getFromLocationName(query,1);
+            addressList = geocoder.getFromLocationName(searchString,1);
         }catch (IOException e){
             Log.e("MapFragment", "geoLocate : " + e.getMessage());
         }
@@ -268,6 +278,7 @@ public class MapFragment extends AbstractFragment<MainView, MapPresenter> implem
                 moveCamera(new LatLng(address.getLatitude(), address.getLongitude()), DEFAULT_ZOOM, address.getAddressLine(0));
             }
         }
+        searchInput.setText("");
     }
 
     public void initMap() {
@@ -416,7 +427,7 @@ public class MapFragment extends AbstractFragment<MainView, MapPresenter> implem
             mMap.addMarker(options);
         }
         getActivityView().hideKeyword();
-//        searchInput.setText("");
+        searchInput.setText("");
     }
 
     public LatLngBounds toBounds(LatLng center, double radiusInMeters) {
@@ -426,6 +437,30 @@ public class MapFragment extends AbstractFragment<MainView, MapPresenter> implem
         LatLng northeastCorner =
                 SphericalUtil.computeOffset(center, distanceFromCenterToCorner, 45.0);
         return new LatLngBounds(southwestCorner, northeastCorner);
+    }
+
+    @Override
+    public void click(Place place) {
+        String placeName = place.getName();
+        LatLng placeLatLng = place.getLatLng();
+        String placeAddress = place.getAddress();
+        if (placeName != null) {
+            moveCamera(place.getLatLng(), DEFAULT_ZOOM, placeName);
+            clearSearch();
+        } else if (placeAddress != null) {
+            moveCamera(placeLatLng, DEFAULT_ZOOM, placeAddress);
+            clearSearch();
+        } else {
+            moveCamera(placeLatLng, DEFAULT_ZOOM, "");
+            clearSearch();
+        }
+    }
+
+    private void clearSearch(){
+        searchInput.setText("");
+        if (recyclerView.getVisibility() == View.VISIBLE) {
+            recyclerView.setVisibility(View.GONE);
+        }
     }
 
 }
