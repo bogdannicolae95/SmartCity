@@ -39,11 +39,12 @@ import com.example.nicolaebogdan.smartcity.i.abstr.AbstractFragment;
 import com.example.nicolaebogdan.smartcity.ux.home.myAccount.i.PermissionStateCallback;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.GeoDataClient;
 import com.google.android.gms.location.places.PlaceDetectionClient;
-import com.google.android.gms.location.places.Places;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.LocationSource;
@@ -60,10 +61,18 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.maps.android.SphericalUtil;
+
+import com.google.android.libraries.places.api.Places;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -74,7 +83,7 @@ import static android.view.View.VISIBLE;
 import static com.example.nicolaebogdan.smartcity.main.MainActivity.LOCATIONS_PERMISSIONS_REQUEST_CODE;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
-public class MapFragment extends AbstractFragment<MainView, MapPresenter> implements PermissionStateCallback, GoogleApiClient.OnConnectionFailedListener {
+public class MapFragment extends AbstractFragment<MainView, MapPresenter> implements PermissionStateCallback {
 
     public static final Float DEFAULT_ZOOM = 15f;
 
@@ -94,8 +103,8 @@ public class MapFragment extends AbstractFragment<MainView, MapPresenter> implem
     @BindView(R.id.search_container)
     RelativeLayout searchContainer;
 
-    @BindView(R.id.input_search)
-    AutoCompleteTextView searchInput;
+//    @BindView(R.id.input_search)
+//    AutoCompleteTextView searchInput;
 
     @BindView(R.id.ic_gps)
     ImageView gpsImgBtn;
@@ -111,6 +120,8 @@ public class MapFragment extends AbstractFragment<MainView, MapPresenter> implem
 
     GoogleApiClient googleApiClient;
 
+    private static final LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(new LatLng(-40,-168),new LatLng(71,136));
+
     @Override
     protected int getLayoutResId() {
         return R.layout.fragment_map;
@@ -121,10 +132,6 @@ public class MapFragment extends AbstractFragment<MainView, MapPresenter> implem
         return new MapPresenter(this);
     }
 
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-    }
 
     @Nullable
     @Override
@@ -136,8 +143,9 @@ public class MapFragment extends AbstractFragment<MainView, MapPresenter> implem
         toolbarTitle = view.findViewById(R.id.toolbar_title);
         getActivityView().hideFab();
 
-        searchInput.setImeOptions(EditorInfo.IME_ACTION_DONE);
-        searchInput.setSingleLine(true);
+//        searchInput.setImeOptions(EditorInfo.IME_ACTION_DONE);
+//        searchInput.setSingleLine(true);
+        Places.initialize(getApplicationContext(), SmartCityApp.getStringResource(R.string.google_maps_API_key));
 
         if (getActivityView().isGoogleServiceOK()) {
             if (fragmentPresenter.isAllowLocation()) {
@@ -163,59 +171,91 @@ public class MapFragment extends AbstractFragment<MainView, MapPresenter> implem
         });
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        if(getActivity() != null) {
-            googleApiClient.stopAutoManage(getActivity());
-            googleApiClient.disconnect();
-        }
-    }
+//    @Override
+//    public void onPause() {
+//        super.onPause();
+//        if(getActivity() != null) {
+//            googleApiClient.stopAutoManage(getActivity());
+//            googleApiClient.disconnect();
+//        }
+//    }
 
     private void init(){
-        if(getActivity() != null) {
-            googleApiClient = new GoogleApiClient
-                    .Builder(getActivity())
-                    .addApi(Places.GEO_DATA_API)
-                    .addApi(Places.PLACE_DETECTION_API)
-                    .enableAutoManage(getActivity(), this)
-                    .build();
 
-            placeAutoCompleteAdapter = new PlaceAutoCompleteAdapter(getContext(), googleApiClient, latLngBounds, null);
-
-            searchInput.setAdapter(placeAutoCompleteAdapter);
+        if (!Places.isInitialized()) {
+            Places.initialize(getApplicationContext(), SmartCityApp.getStringResource(R.string.google_maps_API_key));
         }
 
-//        if (!Places.isInitialized()) {
-//            Places.initialize(getApplicationContext(), apiKey);
+        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
+                getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment);
+
+        if(autocompleteFragment != null) {
+            autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG, Place.Field.ADDRESS));
+
+            autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+                @Override
+                public void onPlaceSelected(@NonNull Place place) {
+                    String placeName = place.getName();
+                    LatLng placeLatLng = place.getLatLng();
+                    String placeAddress = place.getAddress();
+                    if (placeName != null) {
+                        moveCamera(placeLatLng, DEFAULT_ZOOM, placeName);
+                    } else if (placeAddress != null) {
+                        moveCamera(placeLatLng, DEFAULT_ZOOM, placeAddress);
+                    } else {
+                        moveCamera(placeLatLng, DEFAULT_ZOOM, "");
+                    }
+                }
+
+                @Override
+                public void onError(@NonNull Status status) {
+                    SmartCityApp.notifyWithToast(status.getStatusMessage(), Toast.LENGTH_SHORT);
+                    Log.i("MapFragment", "An error occurred: " + status);
+                }
+            });
+        }
+
+//        if(getActivity() != null) {
+//            googleApiClient = new GoogleApiClient
+//                    .Builder(getActivity())
+//                    .addApi(Places.GEO_DATA_API)
+//                    .addApi(Places.PLACE_DETECTION_API)
+//                    .enableAutoManage(getActivity(), this)
+//                    .build();
+//
+//            placeAutoCompleteAdapter = new PlaceAutoCompleteAdapter(getActivity(), googleApiClient, LAT_LNG_BOUNDS, null);
+//
+//            searchInput.setAdapter(placeAutoCompleteAdapter);
 //        }
-
-//        mGeoDataClient = Places.getGeoDataClient(getContext(), null);
-//        mPlaceDetectionClient = Places.getPlaceDetectionClient(getContext(), null);
-
-
-
-        searchInput.setOnEditorActionListener((textView, actionId, keyEvent) -> {
-            if(actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE || keyEvent.getAction() == KeyEvent.ACTION_DOWN || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER){
-                geoLocate();
-            }
-            return false;
-        });
+//
+////        if (!Places.isInitialized()) {
+////            Places.initialize(getApplicationContext(), apiKey);
+////        }
+//
+////        mGeoDataClient = Places.getGeoDataClient(getContext(), null);
+////        mPlaceDetectionClient = Places.getPlaceDetectionClient(getContext(), null);
+//
+//
+//
+//        searchInput.setOnEditorActionListener((textView, actionId, keyEvent) -> {
+//            if(actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE || keyEvent.getAction() == KeyEvent.ACTION_DOWN || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER){
+//                geoLocate();
+//            }
+//            return false;
+//        });
 
         gpsImgBtn.setOnClickListener(view -> {
             getDeviceLocations();
         });
-
-        getActivityView().hideKeyword();
     }
 
-    private void geoLocate(){
-        String searchString = searchInput.getText().toString();
+    private void geoLocate(String query){
+//        String searchString = searchInput.getText().toString();
         Geocoder geocoder = new Geocoder(getContext());
         List<Address> addressList = new ArrayList<>();
 
         try{
-            addressList = geocoder.getFromLocationName(searchString,1);
+            addressList = geocoder.getFromLocationName(query,1);
         }catch (IOException e){
             Log.e("MapFragment", "geoLocate : " + e.getMessage());
         }
@@ -376,7 +416,7 @@ public class MapFragment extends AbstractFragment<MainView, MapPresenter> implem
             mMap.addMarker(options);
         }
         getActivityView().hideKeyword();
-        searchInput.setText("");
+//        searchInput.setText("");
     }
 
     public LatLngBounds toBounds(LatLng center, double radiusInMeters) {
