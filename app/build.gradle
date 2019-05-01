@@ -61,6 +61,8 @@ dependencies {
 
     implementation 'com.google.maps.android:android-maps-utils:0.4.4'
 
+    implementation 'com.google.maps.android:android-maps-utils:0.5+'
+
 
     //circle image view
     implementation 'de.hdodenhof:circleimageview:3.0.0'

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
@@ -20,6 +21,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -36,8 +38,13 @@ import android.widget.Toast;
 import com.example.nicolaebogdan.smartcity.R;
 import com.example.nicolaebogdan.smartcity.SmartCityApp;
 import com.example.nicolaebogdan.smartcity.common.UXCommon;
+import com.example.nicolaebogdan.smartcity.domain.ClusterMarker;
+import com.example.nicolaebogdan.smartcity.domain.User;
+import com.example.nicolaebogdan.smartcity.domain.UserLocation;
 import com.example.nicolaebogdan.smartcity.i.MainView;
 import com.example.nicolaebogdan.smartcity.i.abstr.AbstractFragment;
+import com.example.nicolaebogdan.smartcity.utils.MyClusterManagerRenderer;
+import com.example.nicolaebogdan.smartcity.ux.home.auth.LoginFragment;
 import com.example.nicolaebogdan.smartcity.ux.home.myAccount.i.PermissionStateCallback;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -53,7 +60,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.maps.android.SphericalUtil;
+import com.google.maps.android.clustering.ClusterManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -93,6 +102,13 @@ public class MapFragment extends AbstractFragment<MainView, MapPresenter> implem
     @BindView(R.id.ic_gps)
     ImageView gpsImgBtn;
 
+    @BindView(R.id.noUserLoggedIn)
+    ConstraintLayout noUserLoggedInView;
+
+    @BindView(R.id.goToLoginBtn)
+    Button goToLoginBtn;
+
+
     public GoogleMap mMap;
     public FusedLocationProviderClient fusedLocationProviderClient;
 
@@ -104,7 +120,11 @@ public class MapFragment extends AbstractFragment<MainView, MapPresenter> implem
     RecyclerView recyclerView;
     PlacesAutoCompleteAdapter mAutoCompleteAdapter;
 
+    List<User> listOfAllUser;
 
+    private ClusterManager<ClusterMarker> mClusterManager;
+    private MyClusterManagerRenderer mClusterManagerRenderer;
+    private ArrayList<ClusterMarker> mClusterMarkers = new ArrayList<>();
 
     private static final LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(new LatLng(-40,-168),new LatLng(71,136));
 
@@ -134,9 +154,19 @@ public class MapFragment extends AbstractFragment<MainView, MapPresenter> implem
 
         Places.initialize(getApplicationContext(), SmartCityApp.getStringResource(R.string.google_maps_API_key));
 
+        listOfAllUser = new ArrayList<>();
+
         if (getActivityView().isGoogleServiceOK()) {
             if (fragmentPresenter.isAllowLocation()) {
-                initMap();
+                if(fragmentPresenter.isUserLogeedIn()) {
+                    initMap();
+                }else{
+                    mapContainer.setVisibility(GONE);
+                    noPermissionsContainer.setVisibility(GONE);
+                    getPermissonsBtn.setVisibility(GONE);
+                    noUserLoggedInView.setVisibility(VISIBLE);
+                    goToLoginBtn.setVisibility(VISIBLE);
+                }
             } else {
                 UXCommon.requestPermissionAgain("For this functionality the permissions are required!", getContext(), this);
             }
@@ -196,57 +226,7 @@ public class MapFragment extends AbstractFragment<MainView, MapPresenter> implem
         }
 
         searchInput.addTextChangedListener(filterTextWatcher);
-//        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
-//                getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment);
-//
-//        if(autocompleteFragment != null) {
-//            autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG, Place.Field.ADDRESS));
-//
-//            autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-//                @Override
-//                public void onPlaceSelected(@NonNull Place place) {
-//                    String placeName = place.getName();
-//                    LatLng placeLatLng = place.getLatLng();
-//                    String placeAddress = place.getAddress();
-//                    if (placeName != null) {
-//                        moveCamera(placeLatLng, DEFAULT_ZOOM, placeName);
-//                    } else if (placeAddress != null) {
-//                        moveCamera(placeLatLng, DEFAULT_ZOOM, placeAddress);
-//                    } else {
-//                        moveCamera(placeLatLng, DEFAULT_ZOOM, "");
-//                    }
-//                }
-//
-//                @Override
-//                public void onError(@NonNull Status status) {
-//                    SmartCityApp.notifyWithToast(status.getStatusMessage(), Toast.LENGTH_SHORT);
-//                    Log.i("MapFragment", "An error occurred: " + status);
-//                }
-//            });
-//        }
 
-//        if(getActivity() != null) {
-//            googleApiClient = new GoogleApiClient
-//                    .Builder(getActivity())
-//                    .addApi(Places.GEO_DATA_API)
-//                    .addApi(Places.PLACE_DETECTION_API)
-//                    .enableAutoManage(getActivity(), this)
-//                    .build();
-//
-//            placeAutoCompleteAdapter = new PlaceAutoCompleteAdapter(getActivity(), googleApiClient, LAT_LNG_BOUNDS, null);
-//
-//            searchInput.setAdapter(placeAutoCompleteAdapter);
-//        }
-//
-////        if (!Places.isInitialized()) {
-////            Places.initialize(getApplicationContext(), apiKey);
-////        }
-//
-////        mGeoDataClient = Places.getGeoDataClient(getContext(), null);
-////        mPlaceDetectionClient = Places.getPlaceDetectionClient(getContext(), null);
-//
-//
-//
         searchInput.setOnEditorActionListener((textView, actionId, keyEvent) -> {
             if(actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE || keyEvent.getAction() == KeyEvent.ACTION_DOWN || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER){
                 geoLocate();
@@ -254,10 +234,103 @@ public class MapFragment extends AbstractFragment<MainView, MapPresenter> implem
             return false;
         });
 
+        listOfAllUser = fragmentPresenter.getAllUserFromDB();
+
+        if(listOfAllUser != null && listOfAllUser.size() > 0) {
+            addMapMarkers();
+//            for(User user : listOfAllUser){
+//                if(fragmentPresenter.getFirebaseAuthInstance().getCurrentUser() != null && fragmentPresenter.getFirebaseAuthInstance().getCurrentUser().getEmail() != null){
+//                    if(!user.getEmail().equals(fragmentPresenter.getFirebaseAuthInstance().getCurrentUser().getEmail())){
+//                        if(user.getImageUrl() != null && !user.getImageUrl().isEmpty()){
+//                            mMap.addMarker(new MarkerOptions()
+//                                    .position(new LatLng(Double.valueOf(user.getLat()), Double.valueOf(user.getLon())))
+//                                    .title(user.getLastName())
+//                                    .snippet(user.getEmail())
+//                            );
+//                        }else{
+//                            mMap.addMarker(new MarkerOptions()
+//                                    .position(new LatLng(Double.valueOf(user.getLat()), Double.valueOf(user.getLon())))
+//                                    .title(user.getLastName())
+//                                    .snippet(user.getEmail())
+//                                    .icon(bitmapDescriptorFromVector(getActivity(), R.drawable.default_person_img))
+//                            );
+//                        }
+//                    }
+//                }
+//            }
+
+        }
+
         gpsImgBtn.setOnClickListener(view -> {
             getDeviceLocations();
         });
     }
+
+    @OnClick(R.id.goToLoginBtn)
+    public void goToLoginBtn(){
+        navigateTo(R.id.loginFragment);
+    }
+
+    private void addMapMarkers(){
+
+        if(mMap != null){
+
+            if(mClusterManager == null){
+                mClusterManager = new ClusterManager<>(getActivity().getApplicationContext(), mMap);
+            }
+            if(mClusterManagerRenderer == null){
+                mClusterManagerRenderer = new MyClusterManagerRenderer(
+                        getActivity(),
+                        mMap,
+                        mClusterManager
+                );
+                mClusterManager.setRenderer(mClusterManagerRenderer);
+            }
+
+            for(User user: listOfAllUser){
+                try{
+                    String snippet = "";
+                    if(fragmentPresenter.getFirebaseAuthInstance().getCurrentUser() != null && fragmentPresenter.getFirebaseAuthInstance().getCurrentUser().getEmail() != null){
+                        if(user.getEmail().equals(fragmentPresenter.getFirebaseAuthInstance().getCurrentUser().getEmail())){
+                            snippet = "This is you";
+                        }
+                        else{
+                            snippet = "Determine route to " + user.getFirstName() + " " + user.getLastName() + "?";
+                        }
+                    }else{
+
+                    }
+
+
+                    int avatar = R.drawable.default_person_img; // set the default avatar
+//                    try{
+//                        //todo get image from db and transform
+//                        avatar = Integer.parseInt(user.getImageUrl());
+//                    }catch (NumberFormatException e){
+//                        Log.d("MapFragment", "addMapMarkers: no avatar for " + user.getFirstName() + " " + user.getLastName() + ", setting default.");
+//                    }
+                    ClusterMarker newClusterMarker = new ClusterMarker(
+                            new LatLng(Double.valueOf(user.getLat()), Double.valueOf(user.getLon())),
+                            user.getFirstName() + " " + user.getLastName(),
+                            snippet,
+                            avatar,
+                            user
+                    );
+                    mClusterManager.addItem(newClusterMarker);
+                    mClusterMarkers.add(newClusterMarker);
+
+                }catch (NullPointerException e){
+                    Log.e("MapFragment", "addMapMarkers: NullPointerException: " + e.getMessage() );
+                }
+
+            }
+            mClusterManager.cluster();
+
+
+//            setCameraView();
+        }
+    }
+
 
     private void geoLocate(){
         String searchString = searchInput.getText().toString();
@@ -287,6 +360,8 @@ public class MapFragment extends AbstractFragment<MainView, MapPresenter> implem
         mapContainer.setVisibility(VISIBLE);
         noPermissionsContainer.setVisibility(GONE);
         getPermissonsBtn.setVisibility(GONE);
+        noUserLoggedInView.setVisibility(GONE);
+        goToLoginBtn.setVisibility(GONE);
         if (mapFragment != null) {
             mapFragment.getMapAsync(googleMap -> {
                 mMap = googleMap;
@@ -295,59 +370,9 @@ public class MapFragment extends AbstractFragment<MainView, MapPresenter> implem
                 if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }
-                mMap.setMyLocationEnabled(true);
-                mMap.getUiSettings().setMyLocationButtonEnabled(false);
 
                 init();
-//                    if(currentLocation != null){
-//                        mMap.addMarker(new MarkerOptions()
-//                                .position(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()))
-//                                .title("My Positions")
-//                                .snippet("I'm the best"));
-//                        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-//                            @Override
-//                            public boolean onMarkerClick(Marker marker) {
-//                                if(marker.getSnippet().contains("I'm")){
-//                                    SmartCityApp.notifyWithToast("you are the best",Toast.LENGTH_SHORT);
-//                                    return true;
-//                                }else {
-//                                    return false;
-//                                }
-//                            }
-//                        });
-//                    }else{
-//                        mMap.setMyLocationEnabled(true);
-//                    }
 
-//                    mMap.getUiSettings().setMyLocationButtonEnabled(false);
-
-
-//                        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-//
-//                        mMap.clear();
-//
-//                        CameraPosition googlePlex = CameraPosition.builder()
-//                                .target(new LatLng(37.4219999, -122.0862462))
-//                                .zoom(10)
-//                                .bearing(0)
-//                                .tilt(45)
-//                                .build();
-//
-//                        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(googlePlex), 10000, null);
-//
-//                        mMap.addMarker(new MarkerOptions()
-//                                .position(new LatLng(37.4219999, -122.0862462))
-//                                .title("Spider Man")
-//                                .icon(bitmapDescriptorFromVector(getActivity(), R.drawable.spider)));
-//
-//                        mMap.addMarker(new MarkerOptions()
-//                                .position(new LatLng(37.4629101, -122.2449094))
-//                                .title("Iron Man")
-//                                .snippet("His Talent : Plenty of money"));
-//
-//                        mMap.addMarker(new MarkerOptions()
-//                                .position(new LatLng(37.3092293, -122.1136845))
-//                                .title("Captain America"));
                 });
             }
         }
@@ -371,6 +396,8 @@ public class MapFragment extends AbstractFragment<MainView, MapPresenter> implem
         mapContainer.setVisibility(GONE);
         noPermissionsContainer.setVisibility(VISIBLE);
         getPermissonsBtn.setVisibility(VISIBLE);
+        noUserLoggedInView.setVisibility(GONE);
+        goToLoginBtn.setVisibility(GONE);
     }
 
     @OnClick(R.id.getPermissions)
@@ -401,6 +428,9 @@ public class MapFragment extends AbstractFragment<MainView, MapPresenter> implem
                         public void onComplete(@NonNull Task task) {
                             if(task.isSuccessful()){
                                 currentLocation = (Location) task.getResult();
+                                if(fragmentPresenter.isUserLogeedIn()){
+                                    fragmentPresenter.addUserLocation(currentLocation);
+                                }
                                 latLngBounds = toBounds(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),2000);
                                 if(currentLocation != null) {
                                     moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), DEFAULT_ZOOM, "My Location");
@@ -417,7 +447,30 @@ public class MapFragment extends AbstractFragment<MainView, MapPresenter> implem
         }
     }
 
-    private void moveCamera(LatLng latLng,float zoom,String title){
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    private void setCameraView() {
+
+        User currentUser = fragmentPresenter.getCurrentUser();
+
+        // Set a boundary to start
+        double bottomBoundary = Double.valueOf(currentUser.getLat()) - .1;
+        double leftBoundary = Double.valueOf(currentUser.getLon()) - .1;
+        double topBoundary = Double.valueOf(currentUser.getLat()) + .1;
+        double rightBoundary = Double.valueOf(currentUser.getLon()) + .1;
+
+        latLngBounds = new LatLngBounds(
+                new LatLng(bottomBoundary, leftBoundary),
+                new LatLng(topBoundary, rightBoundary)
+        );
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, 0));
+    }
+
+    private void moveCamera(LatLng latLng, float zoom, String title){
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,zoom));
 
         if(!title.equals("My Location")) {
@@ -426,6 +479,7 @@ public class MapFragment extends AbstractFragment<MainView, MapPresenter> implem
                     .title(title);
             mMap.addMarker(options);
         }
+
         getActivityView().hideKeyword();
         searchInput.setText("");
     }

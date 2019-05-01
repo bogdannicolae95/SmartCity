@@ -21,6 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/SmartCityTheme.NoActionBar">
 
+        <uses-library android:name="com.google.android.maps"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

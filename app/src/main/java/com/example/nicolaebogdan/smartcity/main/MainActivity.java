@@ -24,6 +24,8 @@ import com.example.nicolaebogdan.smartcity.R;
 import com.example.nicolaebogdan.smartcity.SmartCityApp;
 import com.example.nicolaebogdan.smartcity.common.GoToMapCallback;
 import com.example.nicolaebogdan.smartcity.common.UXCommon;
+import com.example.nicolaebogdan.smartcity.domain.User;
+import com.example.nicolaebogdan.smartcity.domain.UserLocation;
 import com.example.nicolaebogdan.smartcity.i.MainView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -31,6 +33,9 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -53,6 +58,11 @@ public class MainActivity extends AppCompatActivity implements MainView, GoToMap
 
     public FusedLocationProviderClient fusedLocationProviderClient;
     Location currentLocation;
+
+    public UserLocation userLocation;
+
+    private FirebaseAuth firebaseAuth;
+    private DatabaseReference firebaseDatabase;
 
 //    private LocationManager locationManager;
 //    private LocationListener locationListener;
@@ -86,6 +96,8 @@ public class MainActivity extends AppCompatActivity implements MainView, GoToMap
         getLocationPermisions();
 
         getDeviceLocations();
+
+        activityPresenter.sessionModel.getAllUsersFromDataBase();
     }
 
     public void getLocationPermisions(){
@@ -103,18 +115,10 @@ public class MainActivity extends AppCompatActivity implements MainView, GoToMap
             activityPresenter.sessionModel.setRequestFromMapFragment(false);
             ActivityCompat.requestPermissions(this,permissions,LOCATIONS_PERMISSIONS_REQUEST_CODE);
         }
-
-//        String [] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
-//        if(ContextCompat.checkSelfPermission(getApplicationContext(),FINE_LOCATIONS) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getApplicationContext(),CORSE_LOCATIONS) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
-//            activityPresenter.sessionModel.setLocationPermission(true);
-//            activityPresenter.sessionModel.setCameraPermission(true);
-//        }else{
-//            ActivityCompat.requestPermissions(this,permissions,PERMISSIONS_REQUEST_CODE);
-//        }
     }
 
-    public void getDeviceLocations(){
 
+    public void getDeviceLocations(){
             fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         try{
             if(activityPresenter.sessionModel.getLocationPermission()){

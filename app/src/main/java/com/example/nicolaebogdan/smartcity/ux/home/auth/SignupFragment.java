@@ -172,6 +172,8 @@ public class SignupFragment extends AbstractFragment<MainView, SignupPresenter> 
         user.setEmail(emailInput.getText().toString());
         user.setPhoneNumber(phoneInput.getText().toString());
         user.setPassword(passwordInput.getText().toString());
+        user.setLat("");
+        user.setLon("");
 
 
         return user;

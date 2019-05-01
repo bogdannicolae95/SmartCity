@@ -1,6 +1,7 @@
 package com.example.nicolaebogdan.smartcity.domain;
 
 import android.content.Context;
+import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.support.annotation.NonNull;
@@ -33,6 +34,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static android.content.Context.LOCATION_SERVICE;
 
 public class SessionModel {
@@ -46,6 +50,8 @@ public class SessionModel {
     private boolean camerePermission;
     private boolean requestPermissionFromMapFragment;
 
+    private List<User> listOfAllUsers;
+
     //todo move from here to a special class with constants
     private static final String NOD_KEY = "users";
 
@@ -58,6 +64,8 @@ public class SessionModel {
         locationPermision = false;
         camerePermission = false;
         requestPermissionFromMapFragment = false;
+
+        listOfAllUsers = new ArrayList<>();
     }
 
     public FirebaseAuth getFirebaseAuthInstance() {
@@ -96,6 +104,10 @@ public class SessionModel {
         });
     }
 
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
     public void loginWithFacebook(LoginResult loginResult) {
         smartCityPreferences.setFacebookToken(loginResult.getAccessToken().getToken());
         AuthCredential credential = FacebookAuthProvider.getCredential(loginResult.getAccessToken().getToken());
@@ -124,13 +136,23 @@ public class SessionModel {
     }
 
     private void addInformationToUser(User user,String userId,String provider,OnRegisterCallback onRegisterCallback){
-
         firebaseDatabase.child(NOD_KEY).child(userId).setValue(user).addOnCompleteListener(task -> {
             onRegisterCallback.onRegisterSucces();
             SmartCityApp.notifyDebugWithToast("Register Succesfull",Toast.LENGTH_SHORT);
         }).addOnFailureListener(e -> {
             onRegisterCallback.onRegisterFail();
             SmartCityApp.notifyDebugWithToast(e.getMessage(),Toast.LENGTH_SHORT);
+        });
+    }
+
+    public void addUserLocation(Location location){
+        String uid = firebaseAuth.getUid();
+        currentUser.setLon(String.valueOf(location.getLongitude()));
+        currentUser.setLat(String.valueOf(location.getLatitude()));
+        firebaseDatabase.child(NOD_KEY).child(uid).setValue(currentUser).addOnCompleteListener(task -> {
+            SmartCityApp.notifyWithToast("Location added successfully",Toast.LENGTH_SHORT);
+        }).addOnFailureListener(e -> {
+            SmartCityApp.notifyWithToast("Location added failed",Toast.LENGTH_SHORT);
         });
     }
 
@@ -162,6 +184,9 @@ public class SessionModel {
                         currentUser.setPhoneNumber(dataSnapshot.getValue(User.class).getPhoneNumber());
                         currentUser.setDateOfBirth(dataSnapshot.getValue(User.class).getDateOfBirth());
                         currentUser.setImageUrl(dataSnapshot.getValue(User.class).getImageUrl());
+                        currentUser.setLon(dataSnapshot.getValue(User.class).getLon());
+                        currentUser.setLat(dataSnapshot.getValue(User.class).getLat());
+
                         onGetUserInfoFromFirebaseCallback.onUserInfoFetchedSuccessfull(currentUser);
                     }
 
@@ -170,6 +195,31 @@ public class SessionModel {
                         onGetUserInfoFromFirebaseCallback.onUserInfoFetchedFail(databaseError.getMessage());
                     }
                 });
+    }
+
+    public void getAllUsersFromDataBase(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(NOD_KEY);
+
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot dt : dataSnapshot.getChildren()){
+                    User user = dt.getValue(User.class);
+                        listOfAllUsers.add(user);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+        myRef.addListenerForSingleValueEvent(eventListener);
+    }
+
+    public List<User> getListOfAllUsers() {
+        return listOfAllUsers;
     }
 
     public void updateUserEmail(String email){

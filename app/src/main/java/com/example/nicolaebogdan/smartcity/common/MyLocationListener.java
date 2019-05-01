@@ -21,8 +21,8 @@ public class MyLocationListener implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
-       user.setLat(String.valueOf(location.getLatitude()));
-       user.setLon(String.valueOf(location.getLongitude()));
+//       user.setLat(String.valueOf(location.getLatitude()));
+//       user.setLon(String.valueOf(location.getLongitude()));
     }
 
     @Override

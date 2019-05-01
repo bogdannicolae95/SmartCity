@@ -207,7 +207,6 @@ public class MyAccountFragment extends AbstractFragment<MainView,MyAccountPresen
             progressDialog.setMessage("Saving Image...");
             progressDialog.show();
             fragmentPresenter.saveProfileImageInFirebase(imageBitmap);
-
         }
     }
 

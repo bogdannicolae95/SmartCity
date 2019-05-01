@@ -20,6 +20,21 @@ public class User implements Serializable {
     private String lon;
     private String imageUrl;
 
+    public User (){}
+
+    public User(String firstName, String lastName, String email, String phoneNumber, String password, String dateOfBirth, String gender, String lat, String lon, String imageUrl) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.password = password;
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
+        this.lat = lat;
+        this.lon = lon;
+        this.imageUrl = imageUrl;
+    }
+
     public String getImageUrl() {
         return imageUrl;
     }
